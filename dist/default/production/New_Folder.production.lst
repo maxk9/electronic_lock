@@ -1,0 +1,1963 @@
+
+
+HI-TECH Software PIC PRO Macro Assembler V9.71a build 6446 
+                                                                                               Sun Mar 12 20:24:09 2023
+
+HI-TECH Software Omniscient Code Generator (PRO mode) build 6446
+     1                           	processor	12F1822
+     2                           	opt	pw 120
+     3                           	opt	pm
+     4                           	psect	config,global,class=CONFIG,delta=2
+     5                           	psect	eeprom_data,global,class=EEDATA,space=2,delta=2
+     6                           	psect	intentry,global,class=CODE,delta=2
+     7                           	psect	cinit,global,class=CODE,delta=2
+     8                           	psect	bitbssCOMMON,global,bit,class=COMMON,space=1,delta=1
+     9                           	psect	bssCOMMON,global,class=COMMON,space=1,delta=1
+    10                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1
+    11                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1
+    12                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1
+    13                           	psect	maintext,global,class=CODE,delta=2
+    14                           	psect	text439,local,class=CODE,delta=2
+    15                           	psect	text440,local,class=CODE,delta=2
+    16                           	psect	text441,local,class=CODE,delta=2
+    17                           	psect	text442,local,class=CODE,delta=2
+    18                           	psect	text443,local,class=CODE,delta=2
+    19                           	psect	text444,local,class=CODE,delta=2
+    20                           	psect	text445,local,class=CODE,delta=2
+    21                           	psect	text446,local,class=CODE,delta=2
+    22                           	psect	text447,local,class=CODE,delta=2
+    23                           	psect	text448,local,class=CODE,delta=2
+    24                           	psect	pa_nodes,global,class=CODE,delta=2
+    25                           	dabs	1,0x7E,2
+    26  000A                     	;#
+    27                           
+    28                           	psect	config
+    29  8007  C9A4               	dw	51620	;#
+    30  8008  DFFF               	dw	57343	;#
+    31                           
+    32                           	psect	eeprom_data
+    33  0000  0000 0000 0000     	db	0,0,0,0,0,0,0,0	;#
+      +       0000 0000 0000     
+      +       0000 0000          
+    34                           
+    35                           	psect	intentry
+    36  0004                     __pintentry:	
+    37  0018                     _CARRY	set	24
+    38  005F                     _GIE	set	95
+    39  005B                     _IOCIE	set	91
+    40  005E                     _PEIE	set	94
+    41  0060                     _RA0	set	96
+    42  0061                     _RA1	set	97
+    43  0064                     _RA4	set	100
+    44  0065                     _RA5	set	101
+    45  005D                     _TMR0IE	set	93
+    46  005A                     _TMR0IF	set	90
+    47  0095                     _OPTION_REGbits	set	149
+    48  0099                     _OSCCON	set	153
+    49  008C                     _TRISA	set	140
+    50  04AB                     _PSA	set	1195
+    51  04B8                     _SWDTEN	set	1208
+    52  04AD                     _TMR0CS	set	1197
+    53  0460                     _TRISA0	set	1120
+    54  0461                     _TRISA1	set	1121
+    55  0465                     _TRISA5	set	1125
+    56  04AF                     _nWPUEN	set	1199
+    57  018C                     _ANSELA	set	396
+    58  0191                     _EEADRL	set	401
+    59  0195                     _EECON1	set	405
+    60  0196                     _EECON2	set	406
+    61  0193                     _EEDATA	set	403
+    62  0CA8                     _RD	set	3240
+    63  0CA9                     _WR	set	3241
+    64  0CAA                     _WREN	set	3242
+    65  020C                     _WPUA	set	524
+    66  0393                     _IOCAF	set	915
+    67  1C9A                     _IOCAF2	set	7322
+    68  1C9B                     _IOCAF3	set	7323
+    69  1C92                     _IOCAN2	set	7314
+    70  1C93                     _IOCAN3	set	7315
+    71                           
+    72 ;; =============== function _init_timer ends ============
+    73 ;; *************** function _isr *****************
+    74 ;; Defined at:
+    75 ;;		line 68 in file "main.c"
+    76 ;; Parameters:    Size  Location     Type
+    77 ;;		None
+    78 ;; Auto vars:     Size  Location     Type
+    79 ;;		None
+    80 ;; Return value:  Size  Location     Type
+    81 ;;		None               void
+    82 ;; Registers used:
+    83 ;;		wreg, status,2, status,0
+    84 ;; Tracked objects:
+    85 ;;		On entry : 0/0
+    86 ;;		On exit  : 18/0
+    87 ;;		Unchanged: FFFE0/0
+    88 ;; Data sizes:     COMMON   BANK0   BANK1
+    89 ;;      Params:         0       0       0
+    90 ;;      Locals:         0       0       0
+    91 ;;      Temps:          2       0       0
+    92 ;;      Totals:         2       0       0
+    93 ;;Total ram usage:        2 bytes
+    94 ;; Hardware stack levels used:    1
+    95 ;; This function calls:
+    96 ;;		Nothing
+    97 ;; This function is called by:
+    98 ;;		Interrupt level 1
+    99 ;; This function uses a non-reentrant model
+   100 ;;
+   101  0004                     _isr:	
+   102                           
+   103                           ; Regs used in _isr: [wreg+status,2+status,0]
+   104  0004  3180               	pagesel	$
+   105                           
+   106                           ;main.c: 70: if (msg_handled) {
+   107  0005  1D79               	btfss	_msg_handled/(0+8),_msg_handled& (0+7)
+   108  0006  2896               	goto	i1l2000
+   109                           
+   110                           ;main.c: 71: if (IOCIE && IOCAF2) {
+   111  0007  1D8B               	btfss	11,3
+   112  0008  284D               	goto	i1l1077
+   113  0009  0027               	movlb	7	; select bank7
+   114  000A  1D13               	btfss	19,2
+   115  000B  284D               	goto	i1l1077
+   116                           
+   117                           ;main.c: 72: if (bit_cnt == 0) {
+   118  000C  08FA               	movf	_bit_cnt,f
+   119  000D  1D03               	skipz
+   120  000E  2811               	goto	i1l1924
+   121                           
+   122                           ;main.c: 73: odd_first = 1;
+   123  000F  15F9               	bsf	_odd_first/(0+8),_odd_first& (0+7)
+   124                           
+   125                           ;main.c: 74: } else {
+   126  0010  2846               	goto	i1l1079
+   127  0011                     i1l1924:	
+   128                           
+   129                           ;main.c: 75: if (bit_cnt < 8) {
+   130  0011  3008               	movlw	8
+   131  0012  027A               	subwf	_bit_cnt,w	;volatile
+   132  0013  1803               	skipnc
+   133  0014  2819               	goto	i1l1928
+   134                           
+   135                           ;main.c: 76: read_data[2] |= 1;
+   136  0015  0020               	movlb	0	; select bank0
+   137  0016  1422               	bsf	_read_data+2,0	;volatile
+   138                           
+   139                           ;main.c: 77: read_data[2] <<= 1;
+   140  0017  35A2               	lslf	_read_data+2,f	;volatile
+   141                           
+   142                           ;main.c: 78: } else
+   143  0018  2845               	goto	i1l1952
+   144  0019                     i1l1928:	
+   145                           
+   146                           ;main.c: 79: if (bit_cnt == 8) {
+   147  0019  087A               	movf	_bit_cnt,w	;volatile
+   148  001A  3A08               	xorlw	8
+   149  001B  1D03               	skipz
+   150  001C  2820               	goto	i1l1932
+   151                           
+   152                           ;main.c: 80: read_data[2] |= 1;
+   153  001D  0020               	movlb	0	; select bank0
+   154  001E  1422               	bsf	_read_data+2,0	;volatile
+   155                           
+   156                           ;main.c: 81: } else
+   157  001F  2845               	goto	i1l1952
+   158  0020                     i1l1932:	
+   159                           
+   160                           ;main.c: 82: if (bit_cnt > 8 && bit_cnt < 16) {
+   161  0020  3009               	movlw	9
+   162  0021  027A               	subwf	_bit_cnt,w	;volatile
+   163  0022  1C03               	skipc
+   164  0023  282C               	goto	i1l1938
+   165  0024  3010               	movlw	16
+   166  0025  027A               	subwf	_bit_cnt,w	;volatile
+   167  0026  1803               	skipnc
+   168  0027  282C               	goto	i1l1938
+   169                           
+   170                           ;main.c: 83: read_data[1] |= 1;
+   171  0028  0020               	movlb	0	; select bank0
+   172  0029  1421               	bsf	_read_data+1,0	;volatile
+   173                           
+   174                           ;main.c: 84: read_data[1] <<= 1;
+   175  002A  35A1               	lslf	_read_data+1,f	;volatile
+   176                           
+   177                           ;main.c: 85: } else
+   178  002B  2845               	goto	i1l1952
+   179  002C                     i1l1938:	
+   180                           
+   181                           ;main.c: 86: if (bit_cnt == 17) {
+   182  002C  087A               	movf	_bit_cnt,w	;volatile
+   183  002D  3A11               	xorlw	17
+   184  002E  1D03               	skipz
+   185  002F  2833               	goto	i1l1942
+   186                           
+   187                           ;main.c: 87: read_data[1] |= 1;
+   188  0030  0020               	movlb	0	; select bank0
+   189  0031  1421               	bsf	_read_data+1,0	;volatile
+   190                           
+   191                           ;main.c: 88: } else
+   192  0032  2845               	goto	i1l1952
+   193  0033                     i1l1942:	
+   194                           
+   195                           ;main.c: 89: if (bit_cnt > 16 && bit_cnt < 24) {
+   196  0033  3011               	movlw	17
+   197  0034  027A               	subwf	_bit_cnt,w	;volatile
+   198  0035  1C03               	skipc
+   199  0036  283F               	goto	i1l1948
+   200  0037  3018               	movlw	24
+   201  0038  027A               	subwf	_bit_cnt,w	;volatile
+   202  0039  1803               	skipnc
+   203  003A  283F               	goto	i1l1948
+   204                           
+   205                           ;main.c: 90: read_data[0] |= 1;
+   206  003B  0020               	movlb	0	; select bank0
+   207  003C  1420               	bsf	_read_data,0	;volatile
+   208                           
+   209                           ;main.c: 91: read_data[0] <<= 1;
+   210  003D  35A0               	lslf	_read_data,f	;volatile
+   211                           
+   212                           ;main.c: 92: } else
+   213  003E  2845               	goto	i1l1952
+   214  003F                     i1l1948:	
+   215                           
+   216                           ;main.c: 93: if (bit_cnt == 24) {
+   217  003F  087A               	movf	_bit_cnt,w	;volatile
+   218  0040  3A18               	xorlw	24
+   219  0041  1D03               	skipz
+   220  0042  2845               	goto	i1l1952
+   221                           
+   222                           ;main.c: 94: read_data[0] |= 1;
+   223  0043  0020               	movlb	0	; select bank0
+   224  0044  1420               	bsf	_read_data,0	;volatile
+   225  0045                     i1l1952:	
+   226                           
+   227                           ;main.c: 95: }
+   228                           ;main.c: 96: ++cnt_d;
+   229  0045  0AFB               	incf	_cnt_d,f	;volatile
+   230  0046                     i1l1079:	
+   231                           
+   232                           ;main.c: 97: }
+   233                           ;main.c: 99: ++bit_cnt;
+   234  0046  0AFA               	incf	_bit_cnt,f	;volatile
+   235                           
+   236                           ;main.c: 101: if (bit_cnt == 26) {
+   237  0047  087A               	movf	_bit_cnt,w	;volatile
+   238  0048  3A1A               	xorlw	26
+   239  0049  1D03               	skipz
+   240  004A  2872               	goto	i1l1980
+   241                           
+   242                           ;main.c: 102: even_last = 1;
+   243  004B  1479               	bsf	_even_last/(0+8),_even_last& (0+7)
+   244  004C  2872               	goto	i1l1980
+   245  004D                     i1l1077:	
+   246                           
+   247                           ;main.c: 105: if (IOCIE && IOCAF3) {
+   248  004D  1D8B               	btfss	11,3
+   249  004E  2872               	goto	i1l1980
+   250  004F  0027               	movlb	7	; select bank7
+   251  0050  1D93               	btfss	19,3
+   252  0051  2872               	goto	i1l1980
+   253                           
+   254                           ;main.c: 106: if (bit_cnt > 0 && bit_cnt < 8) {
+   255  0052  087A               	movf	_bit_cnt,w	;volatile
+   256  0053  1903               	btfsc	3,2
+   257  0054  285C               	goto	i1l1966
+   258  0055  3008               	movlw	8
+   259  0056  027A               	subwf	_bit_cnt,w	;volatile
+   260  0057  1803               	skipnc
+   261  0058  285C               	goto	i1l1966
+   262                           
+   263                           ;main.c: 107: read_data[2] <<= 1;
+   264  0059  0020               	movlb	0	; select bank0
+   265  005A  35A2               	lslf	_read_data+2,f	;volatile
+   266                           
+   267                           ;main.c: 108: } else
+   268  005B  2871               	goto	i1l1978
+   269  005C                     i1l1966:	
+   270                           
+   271                           ;main.c: 109: if (bit_cnt > 8 && bit_cnt < 16) {
+   272  005C  3009               	movlw	9
+   273  005D  027A               	subwf	_bit_cnt,w	;volatile
+   274  005E  1C03               	skipc
+   275  005F  2867               	goto	i1l1972
+   276  0060  3010               	movlw	16
+   277  0061  027A               	subwf	_bit_cnt,w	;volatile
+   278  0062  1803               	skipnc
+   279  0063  2867               	goto	i1l1972
+   280                           
+   281                           ;main.c: 110: read_data[1] <<= 1;
+   282  0064  0020               	movlb	0	; select bank0
+   283  0065  35A1               	lslf	_read_data+1,f	;volatile
+   284                           
+   285                           ;main.c: 111: } else
+   286  0066  2871               	goto	i1l1978
+   287  0067                     i1l1972:	
+   288                           
+   289                           ;main.c: 112: if (bit_cnt > 16 && bit_cnt < 24) {
+   290  0067  3011               	movlw	17
+   291  0068  027A               	subwf	_bit_cnt,w	;volatile
+   292  0069  1C03               	skipc
+   293  006A  2871               	goto	i1l1978
+   294  006B  3018               	movlw	24
+   295  006C  027A               	subwf	_bit_cnt,w	;volatile
+   296  006D  1803               	skipnc
+   297  006E  2871               	goto	i1l1978
+   298                           
+   299                           ;main.c: 113: read_data[0] <<= 1;
+   300  006F  0020               	movlb	0	; select bank0
+   301  0070  35A0               	lslf	_read_data,f	;volatile
+   302  0071                     i1l1978:	
+   303                           
+   304                           ;main.c: 114: }
+   305                           ;main.c: 116: ++bit_cnt;
+   306  0071  0AFA               	incf	_bit_cnt,f	;volatile
+   307  0072                     i1l1980:	
+   308                           
+   309                           ;main.c: 117: }
+   310                           ;main.c: 119: if (bit_cnt == 1) {
+   311  0072  0B7A               	decfsz	_bit_cnt,w	;volatile
+   312  0073  2877               	goto	i1l1986
+   313                           
+   314                           ;main.c: 120: cnt_d = 0;
+   315  0074  01FB               	clrf	_cnt_d	;volatile
+   316                           
+   317                           ;main.c: 121: msg_err = 0;
+   318  0075  10F9               	bcf	_msg_err/(0+8),_msg_err& (0+7)
+   319                           
+   320                           ;main.c: 122: } else
+   321  0076  2896               	goto	i1l2000
+   322  0077                     i1l1986:	
+   323                           
+   324                           ;main.c: 123: if (bit_cnt == 13) {
+   325  0077  087A               	movf	_bit_cnt,w	;volatile
+   326  0078  3A0D               	xorlw	13
+   327  0079  1D03               	skipz
+   328  007A  2887               	goto	i1l1994
+   329                           
+   330                           ;main.c: 124: if ((cnt_d & 1) != odd_first)
+   331  007B  3000               	movlw	0
+   332  007C  19F9               	btfsc	_odd_first/(0+8),_odd_first& (0+7)
+   333  007D  3001               	movlw	1
+   334  007E  00F0               	movwf	??_isr
+   335  007F  3001               	movlw	1
+   336  0080  057B               	andwf	_cnt_d,w
+   337  0081  00F1               	movwf	??_isr+1
+   338  0082  0670               	xorwf	??_isr,w
+   339  0083  1D03               	btfss	3,2
+   340                           
+   341                           ;main.c: 125: msg_err = 1;
+   342  0084  14F9               	bsf	_msg_err/(0+8),_msg_err& (0+7)
+   343                           
+   344                           ;main.c: 127: cnt_d = 0;
+   345  0085  01FB               	clrf	_cnt_d	;volatile
+   346                           
+   347                           ;main.c: 128: } else
+   348  0086  2896               	goto	i1l2000
+   349  0087                     i1l1994:	
+   350                           
+   351                           ;main.c: 129: if (bit_cnt > 25) {
+   352  0087  301A               	movlw	26
+   353  0088  027A               	subwf	_bit_cnt,w	;volatile
+   354  0089  1C03               	skipc
+   355  008A  2896               	goto	i1l2000
+   356                           
+   357                           ;main.c: 130: if ((cnt_d & 1) == even_last)
+   358  008B  3000               	movlw	0
+   359  008C  1879               	btfsc	_even_last/(0+8),_even_last& (0+7)
+   360  008D  3001               	movlw	1
+   361  008E  00F0               	movwf	??_isr
+   362  008F  3001               	movlw	1
+   363  0090  057B               	andwf	_cnt_d,w
+   364  0091  00F1               	movwf	??_isr+1
+   365  0092  0670               	xorwf	??_isr,w
+   366  0093  1903               	btfsc	3,2
+   367                           
+   368                           ;main.c: 131: msg_err = 1;
+   369  0094  14F9               	bsf	_msg_err/(0+8),_msg_err& (0+7)
+   370                           
+   371                           ;main.c: 132: msg_handled = 0;
+   372  0095  1179               	bcf	_msg_handled/(0+8),_msg_handled& (0+7)
+   373  0096                     i1l2000:	
+   374                           
+   375                           ;main.c: 133: }
+   376                           ;main.c: 134: }
+   377                           ;main.c: 135: IOCAF = 0;
+   378  0096  0027               	movlb	7	; select bank7
+   379  0097  0193               	clrf	19	;volatile
+   380                           
+   381                           ;main.c: 138: if (TMR0IE && TMR0IF) {
+   382  0098  1A8B               	btfsc	11,5
+   383  0099  1D0B               	btfss	11,2
+   384  009A  0009               	retfie
+   385                           
+   386                           ;main.c: 139: TMR0IF = 0;
+   387  009B  110B               	bcf	11,2
+   388                           
+   389                           ;main.c: 140: if (bit_cnt != 0)
+   390  009C  087A               	movf	_bit_cnt,w	;volatile
+   391  009D  1903               	btfsc	3,2
+   392  009E  28A3               	goto	i1l2012
+   393                           
+   394                           ;main.c: 141: ++tmr0_msg_timeout;
+   395  009F  0020               	movlb	0	; select bank0
+   396  00A0  0AA5               	incf	_tmr0_msg_timeout,f	;volatile
+   397  00A1  1903               	skipnz
+   398  00A2  0AA6               	incf	_tmr0_msg_timeout+1,f	;volatile
+   399  00A3                     i1l2012:	
+   400                           
+   401                           ;main.c: 143: if ((RA4 == 0)) {
+   402  00A3  0020               	movlb	0	; select bank0
+   403  00A4  1A0C               	btfsc	12,4
+   404  00A5  28A9               	goto	i1l2016
+   405                           
+   406                           ;main.c: 144: ++tmr0_btn_delay;
+   407  00A6  0AA3               	incf	_tmr0_btn_delay,f	;volatile
+   408  00A7  1903               	skipnz
+   409  00A8  0AA4               	incf	_tmr0_btn_delay+1,f	;volatile
+   410  00A9                     i1l2016:	
+   411                           
+   412                           ;main.c: 145: }
+   413                           ;main.c: 146: if (pgm_mode)
+   414  00A9  1E79               	btfss	_pgm_mode/(0+8),_pgm_mode& (0+7)
+   415  00AA  0009               	retfie
+   416                           
+   417                           ;main.c: 147: ++tmr0_pgm_delay;
+   418  00AB  0AA7               	incf	_tmr0_pgm_delay,f	;volatile
+   419  00AC  1903               	skipnz
+   420  00AD  0AA8               	incf	_tmr0_pgm_delay+1,f	;volatile
+   421  00AE  0009               	retfie
+   422  00AF                     __end_of_isr:	
+   423                           
+   424 ;; =============== function _isr ends ============
+   425  007E                     btemp	set	126	;btemp
+   426  007E                     wtemp0	set	126
+   427                           
+   428                           	psect	cinit
+   429  0240                     start_initialization:	
+   430                           
+   431                           ; Clear objects allocated to BITCOMMON
+   432  0240  01F9               	clrf	(__pbitbssCOMMON/(0+8))& (0+127)
+   433                           
+   434                           ; Clear objects allocated to COMMON
+   435  0241  01FA               	clrf	__pbssCOMMON& (0+127)
+   436  0242  01FB               	clrf	(__pbssCOMMON+1)& (0+127)
+   437                           
+   438                           ; Clear objects allocated to BANK0
+   439  0243  01A0               	clrf	__pbssBANK0& (0+127)
+   440  0244  01A1               	clrf	(__pbssBANK0+1)& (0+127)
+   441  0245  01A2               	clrf	(__pbssBANK0+2)& (0+127)
+   442  0246  01A3               	clrf	(__pbssBANK0+3)& (0+127)
+   443  0247  01A4               	clrf	(__pbssBANK0+4)& (0+127)
+   444  0248  01A5               	clrf	(__pbssBANK0+5)& (0+127)
+   445  0249  01A6               	clrf	(__pbssBANK0+6)& (0+127)
+   446  024A  01A7               	clrf	(__pbssBANK0+7)& (0+127)
+   447  024B  01A8               	clrf	(__pbssBANK0+8)& (0+127)
+   448  024C                     end_of_initialization:	
+   449                           ;End of C runtime variable initialization code
+   450                           
+   451  024C  0020               	movlb	0
+   452  024D  28B1               	ljmp	_main	;jump to C main() function
+   453                           
+   454                           	psect	bitbssCOMMON
+   455  03C8                     __pbitbssCOMMON:	
+   456  03C8                     _even_last:	
+   457  03C8                     	ds	1
+   458  03C9                     _msg_err:	
+   459  03C9                     	ds	1
+   460  03CA                     _msg_handled:	
+   461  03CA                     	ds	1
+   462  03CB                     _odd_first:	
+   463  03CB                     	ds	1
+   464  03CC                     _pgm_mode:	
+   465  03CC                     	ds	1
+   466  03CD                     main@btn_released:	
+   467  03CD                     	ds	1
+   468                           
+   469                           	psect	bssCOMMON
+   470  007A                     __pbssCOMMON:	
+   471  007A                     _bit_cnt:	
+   472  007A                     	ds	1
+   473  007B                     _cnt_d:	
+   474  007B                     	ds	1
+   475                           
+   476                           	psect	bssBANK0
+   477  0020                     __pbssBANK0:	
+   478  0020                     _read_data:	
+   479  0020                     	ds	3
+   480  0023                     _tmr0_btn_delay:	
+   481  0023                     	ds	2
+   482  0025                     _tmr0_msg_timeout:	
+   483  0025                     	ds	2
+   484  0027                     _tmr0_pgm_delay:	
+   485  0027                     	ds	2
+   486                           
+   487                           	psect	cstackCOMMON
+   488  0070                     __pcstackCOMMON:	
+   489  0070                     ?_isr:	
+   490  0070                     ??_isr:	
+   491                           ; 0 bytes @ 0x0
+   492                           
+   493  0070                     ?_init_timer:	
+   494                           ; 0 bytes @ 0x0
+   495                           
+   496  0070                     ?_toggle_lock:	
+   497                           ; 0 bytes @ 0x0
+   498                           
+   499  0070                     ?_flush_rx_msg:	
+   500                           ; 0 bytes @ 0x0
+   501                           
+   502  0070                     ?_toggle_led:	
+   503                           ; 0 bytes @ 0x0
+   504                           
+   505  0070                     ?_toggle_zumm:	
+   506                           ; 0 bytes @ 0x0
+   507                           
+   508  0070                     ?_play_long_zum:	
+   509                           ; 0 bytes @ 0x0
+   510                           
+   511  0070                     ?_main:	
+   512                           ; 0 bytes @ 0x0
+   513                           
+   514  0070                     ?_eeprom_read:	
+   515                           ; 0 bytes @ 0x0
+   516                           
+   517  0070                     ?_check_key_in_base:	
+   518                           ; 1 bytes @ 0x0
+   519                           
+   520  0070                     ?_save_key_eeprom:	
+   521                           ; 1 bytes @ 0x0
+   522                           
+   523                           
+   524                           ; 1 bytes @ 0x0
+   525  0070                     	ds	2
+   526  0072                     ??_eeprom_read:	
+   527  0072                     ?_eeprom_write:	
+   528                           ; 0 bytes @ 0x2
+   529                           
+   530  0072                     ??_init_timer:	
+   531                           ; 0 bytes @ 0x2
+   532                           
+   533  0072                     ??_toggle_lock:	
+   534                           ; 0 bytes @ 0x2
+   535                           
+   536  0072                     ??_flush_rx_msg:	
+   537                           ; 0 bytes @ 0x2
+   538                           
+   539  0072                     ??_toggle_led:	
+   540                           ; 0 bytes @ 0x2
+   541                           
+   542  0072                     ??_toggle_zumm:	
+   543                           ; 0 bytes @ 0x2
+   544                           
+   545  0072                     ??_play_long_zum:	
+   546                           ; 0 bytes @ 0x2
+   547                           
+   548  0072                     eeprom_write@value:	
+   549                           ; 0 bytes @ 0x2
+   550                           
+   551                           
+   552                           ; 1 bytes @ 0x2
+   553  0072                     	ds	1
+   554  0073                     ??_eeprom_write:	
+   555  0073                     eeprom_write@addr:	
+   556                           ; 0 bytes @ 0x3
+   557                           
+   558                           
+   559                           ; 1 bytes @ 0x3
+   560  0073                     	ds	1
+   561  0074                     eeprom_read@addr:	
+   562                           
+   563                           ; 1 bytes @ 0x4
+   564  0074                     	ds	1
+   565  0075                     ??_check_key_in_base:	
+   566  0075                     toggle_led@cnt_bit:	
+   567                           ; 0 bytes @ 0x5
+   568                           
+   569  0075                     toggle_zumm@cnt_bit:	
+   570                           ; 1 bytes @ 0x5
+   571                           
+   572  0075                     check_key_in_base@dat1:	
+   573                           ; 1 bytes @ 0x5
+   574                           
+   575                           
+   576                           ; 1 bytes @ 0x5
+   577  0075                     	ds	1
+   578  0076                     check_key_in_base@dat2:	
+   579                           
+   580                           ; 1 bytes @ 0x6
+   581  0076                     	ds	1
+   582  0077                     check_key_in_base@dat3:	
+   583                           
+   584                           ; 1 bytes @ 0x7
+   585  0077                     	ds	1
+   586  0078                     check_key_in_base@count_keys:	
+   587                           
+   588                           ; 1 bytes @ 0x8
+   589  0078                     	ds	1
+   590  0079                     ??_save_key_eeprom:	
+   591  0079                     ??_main:	
+   592                           ; 0 bytes @ 0x9
+   593                           
+   594                           
+   595                           	psect	cstackBANK0
+   596  0029                     __pcstackBANK0:	
+   597                           ; 0 bytes @ 0x9
+   598                           
+   599  0029                     save_key_eeprom@num_key:	
+   600                           
+   601                           ; 1 bytes @ 0x0
+   602  0029                     	ds	1
+   603  002A                     main@cnt_key:	
+   604                           
+   605                           ; 1 bytes @ 0x1
+   606  002A                     	ds	1
+   607                           
+   608                           	psect	maintext
+   609  00B1                     __pmaintext:	
+   610 ;;Data sizes: Strings 0, constant 0, data 0, bss 11, persistent 0 stack 0
+   611 ;;Auto spaces:   Size  Autos    Used
+   612 ;; COMMON          14      9      12
+   613 ;; BANK0           80      2      11
+   614 ;; BANK1           32      0       0
+   615 ;;
+   616 ;; Pointer list with targets:
+   617 ;;
+   618 ;; Critical Paths under _main in COMMON
+   619 ;;
+   620 ;;   _main->_check_key_in_base
+   621 ;;   _save_key_eeprom->_check_key_in_base
+   622 ;;   _check_key_in_base->_eeprom_read
+   623 ;;
+   624 ;; Critical Paths under _isr in COMMON
+   625 ;;
+   626 ;;   None.
+   627 ;;
+   628 ;; Critical Paths under _main in BANK0
+   629 ;;
+   630 ;;   _main->_save_key_eeprom
+   631 ;;
+   632 ;; Critical Paths under _isr in BANK0
+   633 ;;
+   634 ;;   None.
+   635 ;;
+   636 ;; Critical Paths under _main in BANK1
+   637 ;;
+   638 ;;   None.
+   639 ;;
+   640 ;; Critical Paths under _isr in BANK1
+   641 ;;
+   642 ;;   None.
+   643 ;;
+   644 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   645 ;;
+   646 ;;
+   647 ;;Call Graph Tables:
+   648 ;;
+   649 ;; ---------------------------------------------------------------------------------
+   650 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   651 ;; ---------------------------------------------------------------------------------
+   652 ;; (0) _main                                                 1     1      0    1040
+   653 ;;                                              1 BANK0      1     1      0
+   654 ;;                         _init_timer
+   655 ;;                       _flush_rx_msg
+   656 ;;                    _save_key_eeprom
+   657 ;;                        _toggle_zumm
+   658 ;;                      _play_long_zum
+   659 ;;                  _check_key_in_base
+   660 ;;                        _toggle_lock
+   661 ;;                         _toggle_led
+   662 ;;                       _eeprom_write
+   663 ;; ---------------------------------------------------------------------------------
+   664 ;; (1) _save_key_eeprom                                      1     1      0     545
+   665 ;;                                              0 BANK0      1     1      0
+   666 ;;                  _check_key_in_base
+   667 ;;                       _eeprom_write
+   668 ;; ---------------------------------------------------------------------------------
+   669 ;; (1) _play_long_zum                                        3     3      0       0
+   670 ;;                                              2 COMMON     3     3      0
+   671 ;; ---------------------------------------------------------------------------------
+   672 ;; (1) _check_key_in_base                                    4     4      0     328
+   673 ;;                                              5 COMMON     4     4      0
+   674 ;;                        _eeprom_read
+   675 ;; ---------------------------------------------------------------------------------
+   676 ;; (1) _toggle_zumm                                          4     4      0      34
+   677 ;;                                              2 COMMON     4     4      0
+   678 ;; ---------------------------------------------------------------------------------
+   679 ;; (1) _toggle_led                                           4     4      0      34
+   680 ;;                                              2 COMMON     4     4      0
+   681 ;; ---------------------------------------------------------------------------------
+   682 ;; (1) _eeprom_write                                         2     1      1      62
+   683 ;;                                              2 COMMON     2     1      1
+   684 ;; ---------------------------------------------------------------------------------
+   685 ;; (2) _eeprom_read                                          3     3      0      31
+   686 ;;                                              2 COMMON     3     3      0
+   687 ;; ---------------------------------------------------------------------------------
+   688 ;; (1) _flush_rx_msg                                         0     0      0       0
+   689 ;; ---------------------------------------------------------------------------------
+   690 ;; (1) _toggle_lock                                          0     0      0       0
+   691 ;; ---------------------------------------------------------------------------------
+   692 ;; (1) _init_timer                                           0     0      0       0
+   693 ;; ---------------------------------------------------------------------------------
+   694 ;; Estimated maximum stack depth 2
+   695 ;; ---------------------------------------------------------------------------------
+   696 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   697 ;; ---------------------------------------------------------------------------------
+   698 ;; (4) _isr                                                  2     2      0       0
+   699 ;;                                              0 COMMON     2     2      0
+   700 ;; ---------------------------------------------------------------------------------
+   701 ;; Estimated maximum stack depth 4
+   702 ;; ---------------------------------------------------------------------------------
+   703 ;; Call Graph Graphs:
+   704 ;; _main (ROOT)
+   705 ;;   _init_timer
+   706 ;;   _flush_rx_msg
+   707 ;;   _save_key_eeprom
+   708 ;;     _check_key_in_base
+   709 ;;       _eeprom_read
+   710 ;;     _eeprom_write
+   711 ;;   _toggle_zumm
+   712 ;;   _play_long_zum
+   713 ;;   _check_key_in_base
+   714 ;;     _eeprom_read
+   715 ;;   _toggle_lock
+   716 ;;   _toggle_led
+   717 ;;   _eeprom_write
+   718 ;;
+   719 ;; _isr (ROOT)
+   720 ;;
+   721 ;; Address spaces:
+   722 ;;Name               Size   Autos  Total    Cost      Usage
+   723 ;;BIGRAM              70      0       0       0        0.0%
+   724 ;;EEDATA             100      0       0       0        0.0%
+   725 ;;NULL                 0      0       0       0        0.0%
+   726 ;;CODE                 0      0       0       0        0.0%
+   727 ;;BITCOMMON            E      0       1       1        7.1%
+   728 ;;BITSFR0              0      0       0       1        0.0%
+   729 ;;SFR0                 0      0       0       1        0.0%
+   730 ;;COMMON               E      9       C       2       85.7%
+   731 ;;BITSFR1              0      0       0       2        0.0%
+   732 ;;SFR1                 0      0       0       2        0.0%
+   733 ;;BITSFR2              0      0       0       3        0.0%
+   734 ;;SFR2                 0      0       0       3        0.0%
+   735 ;;STACK                0      0       3       3        0.0%
+   736 ;;BITSFR3              0      0       0       4        0.0%
+   737 ;;SFR3                 0      0       0       4        0.0%
+   738 ;;ABS                  0      0      17       4        0.0%
+   739 ;;BITBANK0            50      0       0       5        0.0%
+   740 ;;BITSFR4              0      0       0       5        0.0%
+   741 ;;SFR4                 0      0       0       5        0.0%
+   742 ;;BANK0               50      2       B       6       13.8%
+   743 ;;BITSFR5              0      0       0       6        0.0%
+   744 ;;SFR5                 0      0       0       6        0.0%
+   745 ;;BITBANK1            20      0       0       7        0.0%
+   746 ;;BITSFR6              0      0       0       7        0.0%
+   747 ;;SFR6                 0      0       0       7        0.0%
+   748 ;;BANK1               20      0       0       8        0.0%
+   749 ;;BITSFR7              0      0       0       8        0.0%
+   750 ;;SFR7                 0      0       0       8        0.0%
+   751 ;;BITSFR8              0      0       0       9        0.0%
+   752 ;;SFR8                 0      0       0       9        0.0%
+   753 ;;DATA                 0      0      1A       9        0.0%
+   754 ;;BITSFR9              0      0       0      10        0.0%
+   755 ;;SFR9                 0      0       0      10        0.0%
+   756 ;;BITSFR10             0      0       0      11        0.0%
+   757 ;;SFR10                0      0       0      11        0.0%
+   758 ;;BITSFR11             0      0       0      12        0.0%
+   759 ;;SFR11                0      0       0      12        0.0%
+   760 ;;BITSFR12             0      0       0      13        0.0%
+   761 ;;SFR12                0      0       0      13        0.0%
+   762 ;;BITSFR13             0      0       0      14        0.0%
+   763 ;;SFR13                0      0       0      14        0.0%
+   764 ;;BITSFR14             0      0       0      15        0.0%
+   765 ;;SFR14                0      0       0      15        0.0%
+   766 ;;BITSFR15             0      0       0      16        0.0%
+   767 ;;SFR15                0      0       0      16        0.0%
+   768 ;;BITSFR16             0      0       0      17        0.0%
+   769 ;;SFR16                0      0       0      17        0.0%
+   770 ;;BITSFR17             0      0       0      18        0.0%
+   771 ;;SFR17                0      0       0      18        0.0%
+   772 ;;BITSFR18             0      0       0      19        0.0%
+   773 ;;SFR18                0      0       0      19        0.0%
+   774 ;;BITSFR19             0      0       0      20        0.0%
+   775 ;;SFR19                0      0       0      20        0.0%
+   776 ;;BITSFR20             0      0       0      21        0.0%
+   777 ;;SFR20                0      0       0      21        0.0%
+   778 ;;BITSFR21             0      0       0      22        0.0%
+   779 ;;SFR21                0      0       0      22        0.0%
+   780 ;;BITSFR22             0      0       0      23        0.0%
+   781 ;;SFR22                0      0       0      23        0.0%
+   782 ;;BITSFR23             0      0       0      24        0.0%
+   783 ;;SFR23                0      0       0      24        0.0%
+   784 ;;BITSFR24             0      0       0      25        0.0%
+   785 ;;SFR24                0      0       0      25        0.0%
+   786 ;;BITSFR25             0      0       0      26        0.0%
+   787 ;;SFR25                0      0       0      26        0.0%
+   788 ;;BITSFR26             0      0       0      27        0.0%
+   789 ;;SFR26                0      0       0      27        0.0%
+   790 ;;BITSFR27             0      0       0      28        0.0%
+   791 ;;SFR27                0      0       0      28        0.0%
+   792 ;;BITSFR28             0      0       0      29        0.0%
+   793 ;;SFR28                0      0       0      29        0.0%
+   794 ;;BITSFR29             0      0       0      30        0.0%
+   795 ;;SFR29                0      0       0      30        0.0%
+   796 ;;BITSFR30             0      0       0      31        0.0%
+   797 ;;SFR30                0      0       0      31        0.0%
+   798 ;;BITSFR31             0      0       0      32        0.0%
+   799 ;;SFR31                0      0       0      32        0.0%
+   800                           
+   801                           
+   802 ;; *************** function _main *****************
+   803 ;; Defined at:
+   804 ;;		line 262 in file "main.c"
+   805 ;; Parameters:    Size  Location     Type
+   806 ;;		None
+   807 ;; Auto vars:     Size  Location     Type
+   808 ;;  cnt_key         1    1[BANK0 ] unsigned char 
+   809 ;; Return value:  Size  Location     Type
+   810 ;;		None               void
+   811 ;; Registers used:
+   812 ;;		wreg, status,2, status,0, pclath, cstack
+   813 ;; Tracked objects:
+   814 ;;		On entry : 17F/0
+   815 ;;		On exit  : 0/0
+   816 ;;		Unchanged: 0/0
+   817 ;; Data sizes:     COMMON   BANK0   BANK1
+   818 ;;      Params:         0       0       0
+   819 ;;      Locals:         0       1       0
+   820 ;;      Temps:          0       0       0
+   821 ;;      Totals:         0       1       0
+   822 ;;Total ram usage:        1 bytes
+   823 ;; Hardware stack levels required when called:    4
+   824 ;; This function calls:
+   825 ;;		_init_timer
+   826 ;;		_flush_rx_msg
+   827 ;;		_save_key_eeprom
+   828 ;;		_toggle_zumm
+   829 ;;		_play_long_zum
+   830 ;;		_check_key_in_base
+   831 ;;		_toggle_lock
+   832 ;;		_toggle_led
+   833 ;;		_eeprom_write
+   834 ;; This function is called by:
+   835 ;;		Startup code after reset
+   836 ;; This function uses a non-reentrant model
+   837 ;;
+   838  00B1                     _main:	
+   839                           
+   840                           ;main.c: 263: unsigned char cnt_key = 0;
+   841                           
+   842                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   843  00B1  01AA               	clrf	main@cnt_key
+   844                           
+   845                           ;main.c: 264: static unsigned char s_packet[8] = {0};
+   846                           ;main.c: 265: static bit btn_released = 0;
+   847                           ;main.c: 271: OSCCON = 0x78;
+   848  00B2  3078               	movlw	120
+   849  00B3  0021               	movlb	1	; select bank1
+   850  00B4  0099               	movwf	25	;volatile
+   851                           
+   852                           ;main.c: 273: ANSELA = 0x0;
+   853  00B5  0023               	movlb	3	; select bank3
+   854  00B6  018C               	clrf	12	;volatile
+   855                           
+   856                           ;main.c: 274: TRISA = 0xff;
+   857  00B7  30FF               	movlw	255
+   858  00B8  0021               	movlb	1	; select bank1
+   859  00B9  008C               	movwf	12	;volatile
+   860                           
+   861                           ;main.c: 275: TRISA5 = 0;
+   862  00BA  128C               	bcf	12,5
+   863                           
+   864                           ;main.c: 276: TRISA0 = 0;
+   865  00BB  100C               	bcf	12,0
+   866                           
+   867                           ;main.c: 277: TRISA1 = 0;
+   868  00BC  108C               	bcf	12,1
+   869                           
+   870                           ;main.c: 278: RA0 = 1;
+   871  00BD  0020               	movlb	0	; select bank0
+   872  00BE  140C               	bsf	12,0
+   873                           
+   874                           ;main.c: 279: RA1 = 1;
+   875  00BF  148C               	bsf	12,1
+   876                           
+   877                           ;main.c: 281: nWPUEN = 0;
+   878  00C0  0021               	movlb	1	; select bank1
+   879  00C1  1395               	bcf	21,7
+   880                           
+   881                           ;main.c: 282: WPUA = 0xFF;
+   882  00C2  30FF               	movlw	255
+   883  00C3  0024               	movlb	4	; select bank4
+   884  00C4  008C               	movwf	12	;volatile
+   885                           
+   886                           ;main.c: 286: SWDTEN = 0;
+   887  00C5  0021               	movlb	1	; select bank1
+   888  00C6  1017               	bcf	23,0
+   889  00C7  0064               	clrwdt	;#
+   890                           
+   891                           ;main.c: 289: IOCIE = 1;
+   892  00C8  158B               	bsf	11,3
+   893                           
+   894                           ;main.c: 290: IOCAN3 = 1;
+   895  00C9  0027               	movlb	7	; select bank7
+   896  00CA  1592               	bsf	18,3
+   897                           
+   898                           ;main.c: 291: IOCAN2 = 1;
+   899  00CB  1512               	bsf	18,2
+   900                           
+   901                           ;main.c: 293: init_timer();
+   902  00CC  3182  2256  3180   	fcall	_init_timer
+   903                           
+   904                           ;main.c: 296: PEIE = 1;
+   905  00CF  170B               	bsf	11,6
+   906                           
+   907                           ;main.c: 297: GIE = 1;
+   908  00D0  178B               	bsf	11,7
+   909                           
+   910                           ;main.c: 298: WREN = 1;
+   911  00D1  0023               	movlb	3	; select bank3
+   912  00D2  1515               	bsf	21,2
+   913                           
+   914                           ;main.c: 300: flush_rx_msg();
+   915  00D3  3182  224E  3180   	fcall	_flush_rx_msg
+   916  00D6                     l2404:	
+   917                           
+   918                           ;main.c: 304: if (!msg_handled) {
+   919  00D6  1979               	btfsc	_msg_handled/(0+8),_msg_handled& (0+7)
+   920  00D7  2902               	goto	l1160
+   921                           
+   922                           ;main.c: 306: if (!msg_err) {
+   923  00D8  18F9               	btfsc	_msg_err/(0+8),_msg_err& (0+7)
+   924  00D9  28FA               	goto	l2426
+   925                           
+   926                           ;main.c: 307: if (pgm_mode) {
+   927  00DA  1E79               	btfss	_pgm_mode/(0+8),_pgm_mode& (0+7)
+   928  00DB  28F1               	goto	l2420
+   929                           
+   930                           ;main.c: 308: tmr0_pgm_delay = 0;
+   931  00DC  0020               	movlb	0	; select bank0
+   932  00DD  01A7               	clrf	_tmr0_pgm_delay	;volatile
+   933  00DE  01A8               	clrf	_tmr0_pgm_delay+1	;volatile
+   934                           
+   935                           ;main.c: 309: if (save_key_eeprom(cnt_key)) {
+   936  00DF  082A               	movf	main@cnt_key,w
+   937  00E0  3181  217F  3180   	fcall	_save_key_eeprom
+   938  00E3  3A00               	xorlw	0
+   939  00E4  1903               	skipnz
+   940  00E5  28ED               	goto	l2418
+   941                           
+   942                           ;main.c: 310: toggle_zumm(2);
+   943  00E6  3002               	movlw	2
+   944  00E7  3181  21AF  3180   	fcall	_toggle_zumm
+   945                           
+   946                           ;main.c: 311: ++cnt_key;
+   947  00EA  0020               	movlb	0	; select bank0
+   948  00EB  0AAA               	incf	main@cnt_key,f
+   949                           
+   950                           ;main.c: 312: } else {
+   951  00EC  28FE               	goto	l2428
+   952  00ED                     l2418:	
+   953                           
+   954                           ;main.c: 313: play_long_zum();
+   955  00ED  3182  2217  3180   	fcall	_play_long_zum
+   956  00F0  28FE               	goto	l2428
+   957  00F1                     l2420:	
+   958                           
+   959                           ;main.c: 316: if (check_key_in_base()) {
+   960  00F1  3181  214B  3180   	fcall	_check_key_in_base
+   961  00F4  3A00               	xorlw	0
+   962  00F5  1903               	skipnz
+   963  00F6  28FE               	goto	l2428
+   964                           
+   965                           ;main.c: 317: toggle_lock();
+   966  00F7  3182  225D  3180   	fcall	_toggle_lock
+   967  00FA                     l2426:	
+   968                           ;main.c: 318: toggle_led(3);
+   969                           
+   970                           
+   971                           ;main.c: 323: toggle_led(3);
+   972  00FA  3003               	movlw	3
+   973  00FB  3181  21D7  3180   	fcall	_toggle_led
+   974  00FE                     l2428:	
+   975                           
+   976                           ;main.c: 324: }
+   977                           ;main.c: 326: flush_rx_msg();
+   978  00FE  3182  224E  3180   	fcall	_flush_rx_msg
+   979                           
+   980                           ;main.c: 328: msg_handled = 1;
+   981  0101  1579               	bsf	_msg_handled/(0+8),_msg_handled& (0+7)
+   982  0102                     l1160:	
+   983                           
+   984                           ;main.c: 329: }
+   985                           ;main.c: 332: if ((tmr0_msg_timeout > 6) && msg_handled) {
+   986  0102  3000               	movlw	0
+   987  0103  0020               	movlb	0	; select bank0
+   988  0104  0226               	subwf	_tmr0_msg_timeout+1,w	;volatile
+   989  0105  3007               	movlw	7
+   990  0106  1903               	skipnz
+   991  0107  0225               	subwf	_tmr0_msg_timeout,w	;volatile
+   992  0108  1803               	btfsc	3,0
+   993  0109  1D79               	btfss	_msg_handled/(0+8),_msg_handled& (0+7)
+   994  010A  2910               	goto	l2438
+   995                           
+   996                           ;main.c: 333: tmr0_msg_timeout = 0;
+   997  010B  01A5               	clrf	_tmr0_msg_timeout	;volatile
+   998  010C  01A6               	clrf	_tmr0_msg_timeout+1	;volatile
+   999                           
+  1000                           ;main.c: 334: flush_rx_msg();
+  1001  010D  3182  224E  3180   	fcall	_flush_rx_msg
+  1002  0110                     l2438:	
+  1003                           
+  1004                           ;main.c: 335: }
+  1005                           ;main.c: 338: if ((RA4 == 0)) {
+  1006  0110  1A0C               	btfsc	12,4
+  1007  0111  2934               	goto	l1169
+  1008                           
+  1009                           ;main.c: 340: if (tmr0_btn_delay > 5) {
+  1010  0112  3000               	movlw	0
+  1011  0113  0224               	subwf	_tmr0_btn_delay+1,w	;volatile
+  1012  0114  3006               	movlw	6
+  1013  0115  1903               	skipnz
+  1014  0116  0223               	subwf	_tmr0_btn_delay,w	;volatile
+  1015  0117  1803               	btfsc	3,0
+  1016                           
+  1017                           ;main.c: 341: if (!btn_released) {
+  1018  0118  1AF9               	btfsc	main@btn_released/(0+8),main@btn_released& (0+7)
+  1019  0119  291E               	goto	l2448
+  1020                           
+  1021                           ;main.c: 342: btn_released = 1;
+  1022  011A  16F9               	bsf	main@btn_released/(0+8),main@btn_released& (0+7)
+  1023                           
+  1024                           ;main.c: 343: toggle_lock();
+  1025  011B  3182  225D  3180   	fcall	_toggle_lock
+  1026  011E                     l2448:	
+  1027                           
+  1028                           ;main.c: 344: }
+  1029                           ;main.c: 345: }
+  1030                           ;main.c: 348: if (tmr0_btn_delay > 312) {
+  1031  011E  3001               	movlw	1
+  1032  011F  0224               	subwf	_tmr0_btn_delay+1,w	;volatile
+  1033  0120  3039               	movlw	57
+  1034  0121  1903               	skipnz
+  1035  0122  0223               	subwf	_tmr0_btn_delay,w	;volatile
+  1036  0123  1C03               	skipc
+  1037  0124  2937               	goto	l2460
+  1038                           
+  1039                           ;main.c: 349: play_long_zum();
+  1040  0125  3182  2217  3180   	fcall	_play_long_zum
+  1041                           
+  1042                           ;main.c: 350: pgm_mode = 1;
+  1043  0128  1679               	bsf	_pgm_mode/(0+8),_pgm_mode& (0+7)
+  1044                           
+  1045                           ;main.c: 351: tmr0_pgm_delay = 0;
+  1046  0129  0020               	movlb	0	; select bank0
+  1047  012A  01A7               	clrf	_tmr0_pgm_delay	;volatile
+  1048  012B  01A8               	clrf	_tmr0_pgm_delay+1	;volatile
+  1049                           
+  1050                           ;main.c: 352: tmr0_btn_delay = 0;
+  1051  012C  01A3               	clrf	_tmr0_btn_delay	;volatile
+  1052  012D  01A4               	clrf	_tmr0_btn_delay+1	;volatile
+  1053                           
+  1054                           ;main.c: 354: eeprom_write(0, 0);
+  1055  012E  01F2               	clrf	?_eeprom_write
+  1056  012F  3000               	movlw	0
+  1057  0130  3181  21FF  3180   	fcall	_eeprom_write
+  1058  0133  2937               	goto	l2460
+  1059  0134                     l1169:	
+  1060                           
+  1061                           ;main.c: 358: btn_released = 0;
+  1062  0134  12F9               	bcf	main@btn_released/(0+8),main@btn_released& (0+7)
+  1063                           
+  1064                           ;main.c: 359: tmr0_btn_delay = 0;
+  1065  0135  01A3               	clrf	_tmr0_btn_delay	;volatile
+  1066  0136  01A4               	clrf	_tmr0_btn_delay+1	;volatile
+  1067  0137                     l2460:	
+  1068                           
+  1069                           ;main.c: 360: }
+  1070                           ;main.c: 362: if (pgm_mode) {
+  1071  0137  1E79               	btfss	_pgm_mode/(0+8),_pgm_mode& (0+7)
+  1072  0138  2949               	goto	l2470
+  1073                           
+  1074                           ;main.c: 363: toggle_led(1);
+  1075  0139  3001               	movlw	1
+  1076  013A  3181  21D7  3180   	fcall	_toggle_led
+  1077                           
+  1078                           ;main.c: 366: if (tmr0_pgm_delay > 600) {
+  1079  013D  3002               	movlw	2
+  1080  013E  0020               	movlb	0	; select bank0
+  1081  013F  0228               	subwf	_tmr0_pgm_delay+1,w	;volatile
+  1082  0140  3059               	movlw	89
+  1083  0141  1903               	skipnz
+  1084  0142  0227               	subwf	_tmr0_pgm_delay,w	;volatile
+  1085  0143  1C03               	skipc
+  1086  0144  2949               	goto	l2470
+  1087                           
+  1088                           ;main.c: 367: pgm_mode = 0;
+  1089  0145  1279               	bcf	_pgm_mode/(0+8),_pgm_mode& (0+7)
+  1090                           
+  1091                           ;main.c: 368: play_long_zum();
+  1092  0146  3182  2217  3180   	fcall	_play_long_zum
+  1093  0149                     l2470:	
+  1094                           
+  1095                           ;main.c: 369: }
+  1096                           ;main.c: 370: }
+  1097                           ;main.c: 373: _nop();
+  1098  0149  0000               	nop
+  1099  014A  28D6               	goto	l2404
+  1100  014B                     __end_of_main:	
+  1101                           
+  1102                           	psect	text439
+  1103  017F                     __ptext439:	
+  1104 ;; =============== function _main ends ============
+  1105                           
+  1106                           
+  1107 ;; *************** function _save_key_eeprom *****************
+  1108 ;; Defined at:
+  1109 ;;		line 240 in file "main.c"
+  1110 ;; Parameters:    Size  Location     Type
+  1111 ;;  num_key         1    wreg     unsigned char 
+  1112 ;; Auto vars:     Size  Location     Type
+  1113 ;;  num_key         1    0[BANK0 ] unsigned char 
+  1114 ;; Return value:  Size  Location     Type
+  1115 ;;                  1    wreg      unsigned char 
+  1116 ;; Registers used:
+  1117 ;;		wreg, status,2, status,0, pclath, cstack
+  1118 ;; Tracked objects:
+  1119 ;;		On entry : 1F/0
+  1120 ;;		On exit  : 1C/0
+  1121 ;;		Unchanged: FFFE0/0
+  1122 ;; Data sizes:     COMMON   BANK0   BANK1
+  1123 ;;      Params:         0       0       0
+  1124 ;;      Locals:         0       1       0
+  1125 ;;      Temps:          0       0       0
+  1126 ;;      Totals:         0       1       0
+  1127 ;;Total ram usage:        1 bytes
+  1128 ;; Hardware stack levels used:    1
+  1129 ;; Hardware stack levels required when called:    3
+  1130 ;; This function calls:
+  1131 ;;		_check_key_in_base
+  1132 ;;		_eeprom_write
+  1133 ;; This function is called by:
+  1134 ;;		_main
+  1135 ;; This function uses a non-reentrant model
+  1136 ;;
+  1137  017F                     _save_key_eeprom:	
+  1138                           
+  1139                           ; Regs used in _save_key_eeprom: [wreg+status,2+status,0+pclath+cstack]
+  1140                           ;save_key_eeprom@num_key stored from wreg
+  1141  017F  00A9               	movwf	save_key_eeprom@num_key
+  1142                           
+  1143                           ;main.c: 241: if(check_key_in_base()) {
+  1144  0180  3181  214B  3181   	fcall	_check_key_in_base
+  1145  0183  3A00               	xorlw	0
+  1146  0184  1D03               	btfss	3,2
+  1147                           
+  1148                           ;main.c: 242: return 0;
+  1149  0185  3400               	retlw	0
+  1150                           
+  1151                           ;main.c: 243: }
+  1152                           ;main.c: 246: if(num_key > 10)
+  1153  0186  300B               	movlw	11
+  1154  0187  0229               	subwf	save_key_eeprom@num_key,w
+  1155  0188  1803               	btfsc	3,0
+  1156  0189  3400               	retlw	0
+  1157                           
+  1158                           ;main.c: 249: eeprom_write(0, num_key);
+  1159  018A  0829               	movf	save_key_eeprom@num_key,w
+  1160  018B  00F2               	movwf	?_eeprom_write
+  1161  018C  3000               	movlw	0
+  1162  018D  3181  21FF  3181   	fcall	_eeprom_write
+  1163                           
+  1164                           ;main.c: 250: eeprom_write(num_key * 3 + 1, read_data[2]);
+  1165  0190  0020               	movlb	0	; select bank0
+  1166  0191  0822               	movf	_read_data+2,w	;volatile
+  1167  0192  00F2               	movwf	?_eeprom_write
+  1168  0193  0829               	movf	save_key_eeprom@num_key,w
+  1169  0194  0709               	addwf	9,w
+  1170  0195  0729               	addwf	save_key_eeprom@num_key,w
+  1171  0196  3E01               	addlw	1
+  1172  0197  3181  21FF  3181   	fcall	_eeprom_write
+  1173                           
+  1174                           ;main.c: 251: eeprom_write(num_key * 3 + 2, read_data[1]);
+  1175  019A  0020               	movlb	0	; select bank0
+  1176  019B  0821               	movf	_read_data+1,w	;volatile
+  1177  019C  00F2               	movwf	?_eeprom_write
+  1178  019D  0829               	movf	save_key_eeprom@num_key,w
+  1179  019E  0709               	addwf	9,w
+  1180  019F  0729               	addwf	save_key_eeprom@num_key,w
+  1181  01A0  3E02               	addlw	2
+  1182  01A1  3181  21FF  3181   	fcall	_eeprom_write
+  1183                           
+  1184                           ;main.c: 252: eeprom_write(num_key * 3 + 3, read_data[0]);
+  1185  01A4  0020               	movlb	0	; select bank0
+  1186  01A5  0820               	movf	_read_data,w	;volatile
+  1187  01A6  00F2               	movwf	?_eeprom_write
+  1188  01A7  0829               	movf	save_key_eeprom@num_key,w
+  1189  01A8  0709               	addwf	9,w
+  1190  01A9  0729               	addwf	save_key_eeprom@num_key,w
+  1191  01AA  3E03               	addlw	3
+  1192  01AB  3181  21FF  3181   	fcall	_eeprom_write
+  1193                           
+  1194                           ;main.c: 253: return 1;
+  1195  01AE  3401               	retlw	1
+  1196  01AF                     __end_of_save_key_eeprom:	
+  1197                           
+  1198                           	psect	text440
+  1199  0217                     __ptext440:	
+  1200 ;; =============== function _save_key_eeprom ends ============
+  1201                           
+  1202                           
+  1203 ;; *************** function _play_long_zum *****************
+  1204 ;; Defined at:
+  1205 ;;		line 256 in file "main.c"
+  1206 ;; Parameters:    Size  Location     Type
+  1207 ;;		None
+  1208 ;; Auto vars:     Size  Location     Type
+  1209 ;;		None
+  1210 ;; Return value:  Size  Location     Type
+  1211 ;;		None               void
+  1212 ;; Registers used:
+  1213 ;;		wreg
+  1214 ;; Tracked objects:
+  1215 ;;		On entry : 1C/0
+  1216 ;;		On exit  : 1F/1
+  1217 ;;		Unchanged: 0/0
+  1218 ;; Data sizes:     COMMON   BANK0   BANK1
+  1219 ;;      Params:         0       0       0
+  1220 ;;      Locals:         0       0       0
+  1221 ;;      Temps:          3       0       0
+  1222 ;;      Totals:         3       0       0
+  1223 ;;Total ram usage:        3 bytes
+  1224 ;; Hardware stack levels used:    1
+  1225 ;; Hardware stack levels required when called:    1
+  1226 ;; This function calls:
+  1227 ;;		Nothing
+  1228 ;; This function is called by:
+  1229 ;;		_main
+  1230 ;; This function uses a non-reentrant model
+  1231 ;;
+  1232  0217                     _play_long_zum:	
+  1233                           
+  1234                           ;main.c: 257: { TRISA1 = 0; RA1 = 0; };
+  1235                           
+  1236                           ; Regs used in _play_long_zum: [wreg]
+  1237  0217  0021               	movlb	1	; select bank1
+  1238  0218  108C               	bcf	12,1
+  1239  0219  0020               	movlb	0	; select bank0
+  1240  021A  108C               	bcf	12,1
+  1241                           
+  1242                           ;main.c: 258: _delay((unsigned long)((1000)*(16000000/4000.0)));
+  1243  021B  3015               	movlw	21
+  1244  021C  00F4               	movwf	??_play_long_zum+2
+  1245  021D  3037               	movlw	55
+  1246  021E  00F3               	movwf	??_play_long_zum+1
+  1247  021F  30CA               	movlw	202
+  1248  0220  00F2               	movwf	??_play_long_zum
+  1249  0221                     u1477:	
+  1250  0221  0BF2               	decfsz	??_play_long_zum,f
+  1251  0222  2A21               	goto	u1477
+  1252  0223  0BF3               	decfsz	??_play_long_zum+1,f
+  1253  0224  2A21               	goto	u1477
+  1254  0225  0BF4               	decfsz	??_play_long_zum+2,f
+  1255  0226  2A21               	goto	u1477
+  1256  0227  2A28               	nop2
+  1257                           
+  1258                           ;main.c: 259: { RA1 = 1; TRISA1 = 0; };
+  1259  0228  0020               	movlb	0	; select bank0
+  1260  0229  148C               	bsf	12,1
+  1261  022A  0021               	movlb	1	; select bank1
+  1262  022B  108C               	bcf	12,1
+  1263  022C  0008               	return
+  1264  022D                     __end_of_play_long_zum:	
+  1265                           
+  1266                           	psect	text441
+  1267  014B                     __ptext441:	
+  1268 ;; =============== function _play_long_zum ends ============
+  1269                           
+  1270                           
+  1271 ;; *************** function _check_key_in_base *****************
+  1272 ;; Defined at:
+  1273 ;;		line 214 in file "main.c"
+  1274 ;; Parameters:    Size  Location     Type
+  1275 ;;		None
+  1276 ;; Auto vars:     Size  Location     Type
+  1277 ;;  count_keys      1    8[COMMON] unsigned char 
+  1278 ;;  dat3            1    7[COMMON] unsigned char 
+  1279 ;;  dat2            1    6[COMMON] unsigned char 
+  1280 ;;  dat1            1    5[COMMON] unsigned char 
+  1281 ;; Return value:  Size  Location     Type
+  1282 ;;                  1    wreg      unsigned char 
+  1283 ;; Registers used:
+  1284 ;;		wreg, status,2, status,0, pclath, cstack
+  1285 ;; Tracked objects:
+  1286 ;;		On entry : 0/0
+  1287 ;;		On exit  : 1F/0
+  1288 ;;		Unchanged: FFFE0/0
+  1289 ;; Data sizes:     COMMON   BANK0   BANK1
+  1290 ;;      Params:         0       0       0
+  1291 ;;      Locals:         4       0       0
+  1292 ;;      Temps:          0       0       0
+  1293 ;;      Totals:         4       0       0
+  1294 ;;Total ram usage:        4 bytes
+  1295 ;; Hardware stack levels used:    1
+  1296 ;; Hardware stack levels required when called:    2
+  1297 ;; This function calls:
+  1298 ;;		_eeprom_read
+  1299 ;; This function is called by:
+  1300 ;;		_save_key_eeprom
+  1301 ;;		_main
+  1302 ;; This function uses a non-reentrant model
+  1303 ;;
+  1304  014B                     _check_key_in_base:	
+  1305                           
+  1306                           ;main.c: 215: unsigned char dat1, dat2, dat3;
+  1307                           ;main.c: 216: unsigned char count_keys = eeprom_read(0);
+  1308                           
+  1309                           ; Regs used in _check_key_in_base: [wreg+status,2+status,0+pclath+cstack]
+  1310  014B  3000               	movlw	0
+  1311  014C  3182  222D  3181   	fcall	_eeprom_read
+  1312  014F  00F8               	movwf	check_key_in_base@count_keys
+  1313                           
+  1314                           ;main.c: 219: if(count_keys == 0xFF)
+  1315  0150  3AFF               	xorlw	255
+  1316  0151  1903               	btfsc	3,2
+  1317                           
+  1318                           ;main.c: 220: count_keys = 0;
+  1319  0152  01F8               	clrf	check_key_in_base@count_keys
+  1320  0153                     l2318:	
+  1321                           
+  1322                           ;main.c: 224: dat1 = eeprom_read(count_keys * 3 + 1);
+  1323  0153  0878               	movf	check_key_in_base@count_keys,w
+  1324  0154  0709               	addwf	9,w
+  1325  0155  0778               	addwf	check_key_in_base@count_keys,w
+  1326  0156  3E01               	addlw	1
+  1327  0157  3182  222D  3181   	fcall	_eeprom_read
+  1328  015A  00F5               	movwf	check_key_in_base@dat1
+  1329                           
+  1330                           ;main.c: 225: dat2 = eeprom_read(count_keys * 3 + 2);
+  1331  015B  0878               	movf	check_key_in_base@count_keys,w
+  1332  015C  0709               	addwf	9,w
+  1333  015D  0778               	addwf	check_key_in_base@count_keys,w
+  1334  015E  3E02               	addlw	2
+  1335  015F  3182  222D  3181   	fcall	_eeprom_read
+  1336  0162  00F6               	movwf	check_key_in_base@dat2
+  1337                           
+  1338                           ;main.c: 226: dat3 = eeprom_read(count_keys * 3 + 3);
+  1339  0163  0878               	movf	check_key_in_base@count_keys,w
+  1340  0164  0709               	addwf	9,w
+  1341  0165  0778               	addwf	check_key_in_base@count_keys,w
+  1342  0166  3E03               	addlw	3
+  1343  0167  3182  222D  3181   	fcall	_eeprom_read
+  1344  016A  00F7               	movwf	check_key_in_base@dat3
+  1345                           
+  1346                           ;main.c: 229: if ((dat1 == read_data[2]) &&
+  1347                           ;main.c: 230: (dat2 == read_data[1]) &&
+  1348                           ;main.c: 231: (dat3 == read_data[0]))
+  1349  016B  0020               	movlb	0	; select bank0
+  1350  016C  0822               	movf	_read_data+2,w	;volatile
+  1351  016D  0675               	xorwf	check_key_in_base@dat1,w
+  1352  016E  1D03               	skipz
+  1353  016F  2978               	goto	l2334
+  1354  0170  0821               	movf	_read_data+1,w	;volatile
+  1355  0171  0676               	xorwf	check_key_in_base@dat2,w
+  1356  0172  1D03               	skipz
+  1357  0173  2978               	goto	l2334
+  1358  0174  0877               	movf	check_key_in_base@dat3,w
+  1359  0175  0620               	xorwf	_read_data,w	;volatile
+  1360  0176  1903               	btfsc	3,2
+  1361                           
+  1362                           ;main.c: 232: return 1;
+  1363  0177  3401               	retlw	1
+  1364  0178                     l2334:	
+  1365                           
+  1366                           ;main.c: 234: if(count_keys) --count_keys;
+  1367  0178  0878               	movf	check_key_in_base@count_keys,w
+  1368  0179  1D03               	skipz
+  1369  017A  03F8               	decf	check_key_in_base@count_keys,f
+  1370                           
+  1371                           ;main.c: 235: } while (count_keys);
+  1372  017B  08F8               	movf	check_key_in_base@count_keys,f
+  1373  017C  1903               	btfsc	3,2
+  1374                           
+  1375                           ;main.c: 237: return 0;
+  1376  017D  3400               	retlw	0
+  1377  017E  2953               	goto	l2318
+  1378  017F                     __end_of_check_key_in_base:	
+  1379                           
+  1380                           	psect	text442
+  1381  01AF                     __ptext442:	
+  1382 ;; =============== function _check_key_in_base ends ============
+  1383                           
+  1384                           
+  1385 ;; *************** function _toggle_zumm *****************
+  1386 ;; Defined at:
+  1387 ;;		line 203 in file "main.c"
+  1388 ;; Parameters:    Size  Location     Type
+  1389 ;;  cnt_bit         1    wreg     unsigned char 
+  1390 ;; Auto vars:     Size  Location     Type
+  1391 ;;  cnt_bit         1    5[COMMON] unsigned char 
+  1392 ;; Return value:  Size  Location     Type
+  1393 ;;		None               void
+  1394 ;; Registers used:
+  1395 ;;		wreg, status,2, status,0
+  1396 ;; Tracked objects:
+  1397 ;;		On entry : 1C/0
+  1398 ;;		On exit  : 0/0
+  1399 ;;		Unchanged: 0/0
+  1400 ;; Data sizes:     COMMON   BANK0   BANK1
+  1401 ;;      Params:         0       0       0
+  1402 ;;      Locals:         1       0       0
+  1403 ;;      Temps:          3       0       0
+  1404 ;;      Totals:         4       0       0
+  1405 ;;Total ram usage:        4 bytes
+  1406 ;; Hardware stack levels used:    1
+  1407 ;; Hardware stack levels required when called:    1
+  1408 ;; This function calls:
+  1409 ;;		Nothing
+  1410 ;; This function is called by:
+  1411 ;;		_main
+  1412 ;; This function uses a non-reentrant model
+  1413 ;;
+  1414  01AF                     _toggle_zumm:	
+  1415                           
+  1416                           ; Regs used in _toggle_zumm: [wreg+status,2+status,0]
+  1417                           ;toggle_zumm@cnt_bit stored from wreg
+  1418  01AF  00F5               	movwf	toggle_zumm@cnt_bit
+  1419  01B0                     l2310:	
+  1420                           ;main.c: 204: while (cnt_bit) {
+  1421                           
+  1422  01B0  08F5               	movf	toggle_zumm@cnt_bit,f
+  1423  01B1  1903               	btfsc	3,2
+  1424  01B2  0008               	return
+  1425                           
+  1426                           ;main.c: 205: { TRISA1 = 0; RA1 = 0; };
+  1427  01B3  0021               	movlb	1	; select bank1
+  1428  01B4  108C               	bcf	12,1
+  1429  01B5  0020               	movlb	0	; select bank0
+  1430  01B6  108C               	bcf	12,1
+  1431                           
+  1432                           ;main.c: 206: _delay((unsigned long)((100)*(16000000/4000.0)));
+  1433  01B7  3003               	movlw	3
+  1434  01B8  00F4               	movwf	??_toggle_zumm+2
+  1435  01B9  3006               	movlw	6
+  1436  01BA  00F3               	movwf	??_toggle_zumm+1
+  1437  01BB  3077               	movlw	119
+  1438  01BC  00F2               	movwf	??_toggle_zumm
+  1439  01BD                     u1487:	
+  1440  01BD  0BF2               	decfsz	??_toggle_zumm,f
+  1441  01BE  29BD               	goto	u1487
+  1442  01BF  0BF3               	decfsz	??_toggle_zumm+1,f
+  1443  01C0  29BD               	goto	u1487
+  1444  01C1  0BF4               	decfsz	??_toggle_zumm+2,f
+  1445  01C2  29BD               	goto	u1487
+  1446  01C3  0064               	clrwdt
+  1447                           
+  1448                           ;main.c: 207: { RA1 = 1; TRISA1 = 0; };
+  1449  01C4  0020               	movlb	0	; select bank0
+  1450  01C5  148C               	bsf	12,1
+  1451  01C6  0021               	movlb	1	; select bank1
+  1452  01C7  108C               	bcf	12,1
+  1453                           
+  1454                           ;main.c: 208: _delay((unsigned long)((100)*(16000000/4000.0)));
+  1455  01C8  3003               	movlw	3
+  1456  01C9  00F4               	movwf	??_toggle_zumm+2
+  1457  01CA  3006               	movlw	6
+  1458  01CB  00F3               	movwf	??_toggle_zumm+1
+  1459  01CC  3077               	movlw	119
+  1460  01CD  00F2               	movwf	??_toggle_zumm
+  1461  01CE                     u1497:	
+  1462  01CE  0BF2               	decfsz	??_toggle_zumm,f
+  1463  01CF  29CE               	goto	u1497
+  1464  01D0  0BF3               	decfsz	??_toggle_zumm+1,f
+  1465  01D1  29CE               	goto	u1497
+  1466  01D2  0BF4               	decfsz	??_toggle_zumm+2,f
+  1467  01D3  29CE               	goto	u1497
+  1468  01D4  0064               	clrwdt
+  1469                           
+  1470                           ;main.c: 210: --cnt_bit;
+  1471  01D5  03F5               	decf	toggle_zumm@cnt_bit,f
+  1472  01D6  29B0               	goto	l2310
+  1473  01D7                     __end_of_toggle_zumm:	
+  1474                           
+  1475                           	psect	text443
+  1476  01D7                     __ptext443:	
+  1477 ;; =============== function _toggle_zumm ends ============
+  1478                           
+  1479                           
+  1480 ;; *************** function _toggle_led *****************
+  1481 ;; Defined at:
+  1482 ;;		line 192 in file "main.c"
+  1483 ;; Parameters:    Size  Location     Type
+  1484 ;;  cnt_bit         1    wreg     unsigned char 
+  1485 ;; Auto vars:     Size  Location     Type
+  1486 ;;  cnt_bit         1    5[COMMON] unsigned char 
+  1487 ;; Return value:  Size  Location     Type
+  1488 ;;		None               void
+  1489 ;; Registers used:
+  1490 ;;		wreg, status,2, status,0
+  1491 ;; Tracked objects:
+  1492 ;;		On entry : 0/0
+  1493 ;;		On exit  : 0/0
+  1494 ;;		Unchanged: 0/0
+  1495 ;; Data sizes:     COMMON   BANK0   BANK1
+  1496 ;;      Params:         0       0       0
+  1497 ;;      Locals:         1       0       0
+  1498 ;;      Temps:          3       0       0
+  1499 ;;      Totals:         4       0       0
+  1500 ;;Total ram usage:        4 bytes
+  1501 ;; Hardware stack levels used:    1
+  1502 ;; Hardware stack levels required when called:    1
+  1503 ;; This function calls:
+  1504 ;;		Nothing
+  1505 ;; This function is called by:
+  1506 ;;		_main
+  1507 ;; This function uses a non-reentrant model
+  1508 ;;
+  1509  01D7                     _toggle_led:	
+  1510                           
+  1511                           ; Regs used in _toggle_led: [wreg+status,2+status,0]
+  1512                           ;toggle_led@cnt_bit stored from wreg
+  1513  01D7  00F5               	movwf	toggle_led@cnt_bit
+  1514  01D8                     l2298:	
+  1515                           ;main.c: 193: while (cnt_bit) {
+  1516                           
+  1517  01D8  08F5               	movf	toggle_led@cnt_bit,f
+  1518  01D9  1903               	btfsc	3,2
+  1519  01DA  0008               	return
+  1520                           
+  1521                           ;main.c: 194: { TRISA0 = 0; RA0 = 0; };
+  1522  01DB  0021               	movlb	1	; select bank1
+  1523  01DC  100C               	bcf	12,0
+  1524  01DD  0020               	movlb	0	; select bank0
+  1525  01DE  100C               	bcf	12,0
+  1526                           
+  1527                           ;main.c: 195: _delay((unsigned long)((100)*(16000000/4000.0)));
+  1528  01DF  3003               	movlw	3
+  1529  01E0  00F4               	movwf	??_toggle_led+2
+  1530  01E1  3006               	movlw	6
+  1531  01E2  00F3               	movwf	??_toggle_led+1
+  1532  01E3  3077               	movlw	119
+  1533  01E4  00F2               	movwf	??_toggle_led
+  1534  01E5                     u1507:	
+  1535  01E5  0BF2               	decfsz	??_toggle_led,f
+  1536  01E6  29E5               	goto	u1507
+  1537  01E7  0BF3               	decfsz	??_toggle_led+1,f
+  1538  01E8  29E5               	goto	u1507
+  1539  01E9  0BF4               	decfsz	??_toggle_led+2,f
+  1540  01EA  29E5               	goto	u1507
+  1541  01EB  0064               	clrwdt
+  1542                           
+  1543                           ;main.c: 196: { RA0 = 1; TRISA0 = 0; };
+  1544  01EC  0020               	movlb	0	; select bank0
+  1545  01ED  140C               	bsf	12,0
+  1546  01EE  0021               	movlb	1	; select bank1
+  1547  01EF  100C               	bcf	12,0
+  1548                           
+  1549                           ;main.c: 197: _delay((unsigned long)((100)*(16000000/4000.0)));
+  1550  01F0  3003               	movlw	3
+  1551  01F1  00F4               	movwf	??_toggle_led+2
+  1552  01F2  3006               	movlw	6
+  1553  01F3  00F3               	movwf	??_toggle_led+1
+  1554  01F4  3077               	movlw	119
+  1555  01F5  00F2               	movwf	??_toggle_led
+  1556  01F6                     u1517:	
+  1557  01F6  0BF2               	decfsz	??_toggle_led,f
+  1558  01F7  29F6               	goto	u1517
+  1559  01F8  0BF3               	decfsz	??_toggle_led+1,f
+  1560  01F9  29F6               	goto	u1517
+  1561  01FA  0BF4               	decfsz	??_toggle_led+2,f
+  1562  01FB  29F6               	goto	u1517
+  1563  01FC  0064               	clrwdt
+  1564                           
+  1565                           ;main.c: 199: --cnt_bit;
+  1566  01FD  03F5               	decf	toggle_led@cnt_bit,f
+  1567  01FE  29D8               	goto	l2298
+  1568  01FF                     __end_of_toggle_led:	
+  1569                           
+  1570                           	psect	text444
+  1571  01FF                     __ptext444:	
+  1572 ;; =============== function _toggle_led ends ============
+  1573                           
+  1574                           
+  1575 ;; *************** function _eeprom_write *****************
+  1576 ;; Defined at:
+  1577 ;;		line 8 in file "C:\Program Files (x86)\HI-TECH Software\PICC\9.71a\sources\eewrite.c"
+  1578 ;; Parameters:    Size  Location     Type
+  1579 ;;  addr            1    wreg     unsigned char 
+  1580 ;;  value           1    2[COMMON] unsigned char 
+  1581 ;; Auto vars:     Size  Location     Type
+  1582 ;;  addr            1    3[COMMON] unsigned char 
+  1583 ;; Return value:  Size  Location     Type
+  1584 ;;		None               void
+  1585 ;; Registers used:
+  1586 ;;		wreg, status,2, status,0
+  1587 ;; Tracked objects:
+  1588 ;;		On entry : 1F/0
+  1589 ;;		On exit  : 1F/3
+  1590 ;;		Unchanged: FFFE0/0
+  1591 ;; Data sizes:     COMMON   BANK0   BANK1
+  1592 ;;      Params:         1       0       0
+  1593 ;;      Locals:         1       0       0
+  1594 ;;      Temps:          0       0       0
+  1595 ;;      Totals:         2       0       0
+  1596 ;;Total ram usage:        2 bytes
+  1597 ;; Hardware stack levels used:    1
+  1598 ;; Hardware stack levels required when called:    1
+  1599 ;; This function calls:
+  1600 ;;		Nothing
+  1601 ;; This function is called by:
+  1602 ;;		_save_key_eeprom
+  1603 ;;		_main
+  1604 ;; This function uses a non-reentrant model
+  1605 ;;
+  1606  01FF                     _eeprom_write:	
+  1607                           
+  1608                           ; Regs used in _eeprom_write: [wreg+status,2+status,0]
+  1609                           ;eeprom_write@addr stored from wreg
+  1610  01FF  00F3               	movwf	eeprom_write@addr
+  1611  0200                     l1213:	
+  1612  0200  0023               	movlb	3	; select bank3
+  1613  0201  1895               	btfsc	21,1
+  1614  0202  2A00               	goto	l1213
+  1615  0203  0873               	movf	eeprom_write@addr,w
+  1616  0204  0091               	movwf	17	;volatile
+  1617  0205  0872               	movf	eeprom_write@value,w
+  1618  0206  0093               	movwf	19	;volatile
+  1619  0207  303F               	movlw	63
+  1620  0208  0595               	andwf	21,f	;volatile
+  1621  0209  1003               	bcf	3,0
+  1622  020A  1B8B               	btfsc	11,7
+  1623  020B  1403               	bsf	3,0
+  1624  020C  138B               	bcf	11,7
+  1625  020D  1515               	bsf	21,2
+  1626  020E  3055               	movlw	85
+  1627  020F  0096               	movwf	22	;volatile
+  1628  0210  30AA               	movlw	170
+  1629  0211  0096               	movwf	22	;volatile
+  1630  0212  1495               	bsf	21,1
+  1631  0213  1115               	bcf	21,2
+  1632  0214  1803               	btfsc	3,0
+  1633  0215  178B               	bsf	11,7
+  1634  0216  0008               	return
+  1635  0217                     __end_of_eeprom_write:	
+  1636                           
+  1637                           	psect	text445
+  1638  022D                     __ptext445:	
+  1639 ;; =============== function _eeprom_write ends ============
+  1640                           
+  1641                           
+  1642 ;; *************** function _eeprom_read *****************
+  1643 ;; Defined at:
+  1644 ;;		line 8 in file "eeread.c"
+  1645 ;; Parameters:    Size  Location     Type
+  1646 ;;  addr            1    wreg     unsigned char 
+  1647 ;; Auto vars:     Size  Location     Type
+  1648 ;;  addr            1    4[COMMON] unsigned char 
+  1649 ;; Return value:  Size  Location     Type
+  1650 ;;                  1    wreg      unsigned char 
+  1651 ;; Registers used:
+  1652 ;;		wreg, status,2, status,0
+  1653 ;; Tracked objects:
+  1654 ;;		On entry : 0/0
+  1655 ;;		On exit  : 1F/3
+  1656 ;;		Unchanged: FFFE0/0
+  1657 ;; Data sizes:     COMMON   BANK0   BANK1
+  1658 ;;      Params:         0       0       0
+  1659 ;;      Locals:         1       0       0
+  1660 ;;      Temps:          2       0       0
+  1661 ;;      Totals:         3       0       0
+  1662 ;;Total ram usage:        3 bytes
+  1663 ;; Hardware stack levels used:    1
+  1664 ;; Hardware stack levels required when called:    1
+  1665 ;; This function calls:
+  1666 ;;		Nothing
+  1667 ;; This function is called by:
+  1668 ;;		_check_key_in_base
+  1669 ;; This function uses a non-reentrant model
+  1670 ;;
+  1671  022D                     _eeprom_read:	
+  1672                           
+  1673                           ; Regs used in _eeprom_read: [wreg+status,2+status,0]
+  1674                           ;eeprom_read@addr stored from wreg
+  1675  022D  00F4               	movwf	eeprom_read@addr
+  1676  022E                     l1191:	
+  1677  022E  0064               	clrwdt	;#
+  1678  022F  0023               	movlb	3	; select bank3
+  1679  0230  1895               	btfsc	21,1
+  1680  0231  2A2E               	goto	l1191
+  1681  0232  0874               	movf	eeprom_read@addr,w
+  1682  0233  0091               	movwf	17	;volatile
+  1683  0234  303F               	movlw	63
+  1684  0235  0595               	andwf	21,f	;volatile
+  1685  0236  1415               	bsf	21,0
+  1686  0237  1003               	clrc
+  1687  0238  1815               	btfsc	21,0
+  1688  0239  1403               	setc
+  1689  023A  3000               	movlw	0
+  1690  023B  3D09               	addwfc	9,w
+  1691  023C  00F2               	movwf	??_eeprom_read
+  1692  023D  01F3               	clrf	??_eeprom_read+1
+  1693  023E  0813               	movf	19,w	;volatile
+  1694  023F  0008               	return
+  1695  0240                     __end_of_eeprom_read:	
+  1696                           
+  1697                           	psect	text446
+  1698  024E                     __ptext446:	
+  1699 ;; =============== function _eeprom_read ends ============
+  1700                           
+  1701                           
+  1702 ;; *************** function _flush_rx_msg *****************
+  1703 ;; Defined at:
+  1704 ;;		line 182 in file "main.c"
+  1705 ;; Parameters:    Size  Location     Type
+  1706 ;;		None
+  1707 ;; Auto vars:     Size  Location     Type
+  1708 ;;		None
+  1709 ;; Return value:  Size  Location     Type
+  1710 ;;		None               void
+  1711 ;; Registers used:
+  1712 ;;		status,2
+  1713 ;; Tracked objects:
+  1714 ;;		On entry : 0/3
+  1715 ;;		On exit  : 1F/0
+  1716 ;;		Unchanged: FFFE0/0
+  1717 ;; Data sizes:     COMMON   BANK0   BANK1
+  1718 ;;      Params:         0       0       0
+  1719 ;;      Locals:         0       0       0
+  1720 ;;      Temps:          0       0       0
+  1721 ;;      Totals:         0       0       0
+  1722 ;;Total ram usage:        0 bytes
+  1723 ;; Hardware stack levels used:    1
+  1724 ;; Hardware stack levels required when called:    1
+  1725 ;; This function calls:
+  1726 ;;		Nothing
+  1727 ;; This function is called by:
+  1728 ;;		_main
+  1729 ;; This function uses a non-reentrant model
+  1730 ;;
+  1731  024E                     _flush_rx_msg:	
+  1732                           
+  1733                           ;main.c: 183: bit_cnt = 0;
+  1734                           
+  1735                           ; Regs used in _flush_rx_msg: [status,2]
+  1736  024E  01FA               	clrf	_bit_cnt	;volatile
+  1737                           
+  1738                           ;main.c: 184: read_data[2] = 0;
+  1739  024F  0020               	movlb	0	; select bank0
+  1740  0250  01A2               	clrf	_read_data+2	;volatile
+  1741                           
+  1742                           ;main.c: 185: read_data[1] = 0;
+  1743  0251  01A1               	clrf	_read_data+1	;volatile
+  1744                           
+  1745                           ;main.c: 186: read_data[0] = 0;
+  1746  0252  01A0               	clrf	_read_data	;volatile
+  1747                           
+  1748                           ;main.c: 188: even_last = 0;
+  1749  0253  1079               	bcf	_even_last/(0+8),_even_last& (0+7)
+  1750                           
+  1751                           ;main.c: 189: odd_first = 0;
+  1752  0254  11F9               	bcf	_odd_first/(0+8),_odd_first& (0+7)
+  1753  0255  0008               	return
+  1754  0256                     __end_of_flush_rx_msg:	
+  1755                           
+  1756                           	psect	text447
+  1757  025D                     __ptext447:	
+  1758 ;; =============== function _flush_rx_msg ends ============
+  1759                           
+  1760                           
+  1761 ;; *************** function _toggle_lock *****************
+  1762 ;; Defined at:
+  1763 ;;		line 174 in file "main.c"
+  1764 ;; Parameters:    Size  Location     Type
+  1765 ;;		None
+  1766 ;; Auto vars:     Size  Location     Type
+  1767 ;;		None
+  1768 ;; Return value:  Size  Location     Type
+  1769 ;;		None               void
+  1770 ;; Registers used:
+  1771 ;;		None
+  1772 ;; Tracked objects:
+  1773 ;;		On entry : 1F/0
+  1774 ;;		On exit  : 1F/0
+  1775 ;;		Unchanged: FFFE0/0
+  1776 ;; Data sizes:     COMMON   BANK0   BANK1
+  1777 ;;      Params:         0       0       0
+  1778 ;;      Locals:         0       0       0
+  1779 ;;      Temps:          0       0       0
+  1780 ;;      Totals:         0       0       0
+  1781 ;;Total ram usage:        0 bytes
+  1782 ;; Hardware stack levels used:    1
+  1783 ;; Hardware stack levels required when called:    1
+  1784 ;; This function calls:
+  1785 ;;		Nothing
+  1786 ;; This function is called by:
+  1787 ;;		_main
+  1788 ;; This function uses a non-reentrant model
+  1789 ;;
+  1790  025D                     _toggle_lock:	
+  1791                           
+  1792                           ;main.c: 175: if ((RA5 == 1)) {
+  1793                           
+  1794                           ; Regs used in _toggle_lock: []
+  1795  025D  1E8C               	btfss	12,5
+  1796  025E  2A61               	goto	l1119
+  1797                           
+  1798                           ;main.c: 176: RA5 = 0;
+  1799  025F  128C               	bcf	12,5
+  1800                           
+  1801                           ;main.c: 177: } else {
+  1802  0260  0008               	return
+  1803  0261                     l1119:	
+  1804                           
+  1805                           ;main.c: 178: RA5 = 1;
+  1806  0261  168C               	bsf	12,5
+  1807  0262  0008               	return
+  1808  0263                     __end_of_toggle_lock:	
+  1809                           
+  1810                           	psect	text448
+  1811  0256                     __ptext448:	
+  1812 ;; =============== function _toggle_lock ends ============
+  1813                           
+  1814                           
+  1815 ;; *************** function _init_timer *****************
+  1816 ;; Defined at:
+  1817 ;;		line 163 in file "main.c"
+  1818 ;; Parameters:    Size  Location     Type
+  1819 ;;		None
+  1820 ;; Auto vars:     Size  Location     Type
+  1821 ;;		None
+  1822 ;; Return value:  Size  Location     Type
+  1823 ;;		None               void
+  1824 ;; Registers used:
+  1825 ;;		wreg, status,2, status,0
+  1826 ;; Tracked objects:
+  1827 ;;		On entry : 17F/7
+  1828 ;;		On exit  : 17F/1
+  1829 ;;		Unchanged: FFE80/0
+  1830 ;; Data sizes:     COMMON   BANK0   BANK1
+  1831 ;;      Params:         0       0       0
+  1832 ;;      Locals:         0       0       0
+  1833 ;;      Temps:          0       0       0
+  1834 ;;      Totals:         0       0       0
+  1835 ;;Total ram usage:        0 bytes
+  1836 ;; Hardware stack levels used:    1
+  1837 ;; Hardware stack levels required when called:    1
+  1838 ;; This function calls:
+  1839 ;;		Nothing
+  1840 ;; This function is called by:
+  1841 ;;		_main
+  1842 ;; This function uses a non-reentrant model
+  1843 ;;
+  1844  0256                     _init_timer:	
+  1845                           
+  1846                           ;main.c: 168: PSA = 0;
+  1847                           
+  1848                           ; Regs used in _init_timer: [wreg+status,2+status,0]
+  1849  0256  0021               	movlb	1	; select bank1
+  1850  0257  1195               	bcf	21,3
+  1851                           
+  1852                           ;main.c: 169: OPTION_REGbits.PS = 0x7;
+  1853  0258  3007               	movlw	7
+  1854  0259  0495               	iorwf	21,f	;volatile
+  1855                           
+  1856                           ;main.c: 170: TMR0CS = 0;
+  1857  025A  1295               	bcf	21,5
+  1858                           
+  1859                           ;main.c: 171: TMR0IE = 1;
+  1860  025B  168B               	bsf	11,5
+  1861  025C  0008               	return
+  1862  025D                     __end_of_init_timer:	
+
+
+HI-TECH Software PICC Macro Assembler V9.71a build 6446 
+Symbol Table                                                                                   Sun Mar 12 20:24:09 2023
+
+                         _RD 0CA8                           _WR 0CA9                          _GIE 005F  
+                        _RA0 0060                          _RA1 0061                          _RA4 0064  
+                        _RA5 0065                          _PSA 04AB                          _isr 0004  
+                        wreg 0009                  main@cnt_key 002A                         l1130 0000  
+                       l1116 0000                         l1124 0000                         l1212 0000  
+                       l1213 0200                         l1119 0261                         l1136 0000  
+                       l1152 0000                         l1160 0102                         l2300 0000  
+                       l2302 0000                         l2310 01B0                         l1191 022E  
+                       l2304 0000                         l2320 0000                         l2312 0000  
+                       l2400 0000                         l1193 0000                         l1169 0134  
+                       l2250 0000                         l2306 0000                         l2322 0000  
+                       l2314 0000                         l2402 0000                         l2252 0000  
+                       l2260 0000                         l2308 0000                         l2324 0000  
+                       l2412 0000                         l2420 00F1                         l2404 00D6  
+                       l2246 0000                         l2254 0000                         l2262 0000  
+                       l2270 0000                         l2334 0178                         l2318 0153  
+                       l2342 0000                         l2350 0000                         l2430 0000  
+                       l2248 0000                         l2280 0000                         l2272 0000  
+                       l2336 0000                         l2344 0000                         l2424 0000  
+                       l2416 0000                         l2258 0000                         l2282 0000  
+                       l2274 0000                         l2290 0000                         l2346 0000  
+                       l2418 00ED                         l2426 00FA                         l2370 0000  
+                       l2284 0000                         l2292 0000                         l2348 0000  
+                       l2364 0000                         l2452 0000                         l2460 0137  
+                       l2436 0000                         l2428 00FE                         l2380 0000  
+                       l2372 0000                         l2278 0000                         l2294 0000  
+                       l2470 0149                         l2454 0000                         l2446 0000  
+                       l2438 0110                         l2390 0000                         l2382 0000  
+                       l2374 0000                         l2296 0000                         l2288 0000  
+                       l2464 0000                         l2456 0000                         l2448 011E  
+                       l2392 0000                         l2384 0000                         l2376 0000  
+                       l2368 0000                         l2298 01D8                         l2458 0000  
+                       l2394 0000                         l2386 0000                         l2378 0000  
+                       l2468 0000                         l2396 0000                         l2388 0000  
+                       l2398 0000                         ?_isr 0070                         u1507 01E5  
+                       u1517 01F6                         u1477 0221                         u1487 01BD  
+                       u1497 01CE                         _PEIE 005E                         _WREN 0CAA  
+                       _WPUA 020C               ??_eeprom_write 0073                         _main 00B1  
+                       btemp 007E                         start 00AF                        ??_isr 0070  
+                      ?_main 0070                        _CARRY 0018                        _IOCAF 0393  
+                      _IOCIE 005B                        _TRISA 008C                        _cnt_d 007B  
+             __pbitbssCOMMON 03C8                        wtemp0 007E                 __end_of_main 014B  
+      check_key_in_base@dat1 0075        check_key_in_base@dat2 0076        check_key_in_base@dat3 0077  
+                     ??_main 0079        __end_of_play_long_zum 022D                ?_flush_rx_msg 0070  
+   __size_of_save_key_eeprom 0030                       _EEADRL 0191                       _EEDATA 0193  
+                     _EECON1 0195                       _EECON2 0196               _tmr0_btn_delay 0023  
+                     _ANSELA 018C                       _IOCAF2 1C9A                       _IOCAF3 1C9B  
+                     _IOCAN2 1C92                       _IOCAN3 1C93                       i1l2000 0096  
+                     i1l2010 0000                       i1l2002 0000                       i1l2012 00A3  
+                     i1l2016 00A9                       i1l2008 0000                       i1l1077 004D  
+                     i1l1079 0046                       i1l1914 0000                       i1l1932 0020  
+                     i1l1924 0011                       i1l1942 0033                       i1l1952 0045  
+                     i1l1928 0019                       i1l1962 0000                       i1l1954 0000  
+                     i1l1938 002C                       i1l1972 0067                       i1l1980 0072  
+                     i1l1948 003F                       i1l1982 0000                       i1l1966 005C  
+                     i1l1984 0000                       i1l1994 0087                       i1l1986 0077  
+                     i1l1978 0071                       _OSCCON 0099                       _TMR0IE 005D  
+                     _TMR0IF 005A                       _TMR0CS 04AD                       _TRISA0 0460  
+                     _TRISA1 0461                       _TRISA5 0465                       _SWDTEN 04B8  
+       __size_of_eeprom_read 0013                       _nWPUEN 04AF               _tmr0_pgm_delay 0027  
+       __end_of_eeprom_write 0217               ??_flush_rx_msg 0072            _check_key_in_base 014B  
+            eeprom_read@addr 0074           ?_check_key_in_base 0070                 ?_toggle_lock 0070  
+               ?_toggle_zumm 0070               __pcstackCOMMON 0070          ??_check_key_in_base 0075  
+             _OPTION_REGbits 0095            eeprom_write@value 0072       save_key_eeprom@num_key 0029  
+  __end_of_check_key_in_base 017F                   __pbssBANK0 0020            ??_save_key_eeprom 0079  
+                 __pmaintext 00B1                   __pintentry 0004             main@btn_released 03CD  
+       __end_of_flush_rx_msg 0256        __size_of_eeprom_write 0018                   _init_timer 0256  
+                    _bit_cnt 007A            toggle_led@cnt_bit 0075                 __size_of_isr 00AB  
+                    _msg_err 03C9   __size_of_check_key_in_base 0034         end_of_initialization 024C  
+               _eeprom_write 01FF         __size_of_toggle_lock 0006         __size_of_toggle_zumm 0028  
+                 _toggle_led 01D7                ??_eeprom_read 0072       __size_of_play_long_zum 0016  
+                ?_init_timer 0070              _save_key_eeprom 017F          start_initialization 0240  
+                __end_of_isr 00AF        __size_of_flush_rx_msg 0008          __end_of_eeprom_read 0240  
+                __pbssCOMMON 007A                  ?_toggle_led 0070                 _flush_rx_msg 024E  
+              __pcstackBANK0 0029                _play_long_zum 0217             eeprom_write@addr 0073  
+        __size_of_init_timer 0007                    __ptext440 0217                    __ptext441 014B  
+                  __ptext442 01AF                    __ptext443 01D7                    __ptext444 01FF  
+                  __ptext445 022D                    __ptext446 024E                    __ptext447 025D  
+                  __ptext439 017F                    __ptext448 0256      __end_of_save_key_eeprom 01AF  
+             ?_play_long_zum 0070                    _odd_first 03CB                    _even_last 03C8  
+                  _read_data 0020                  _eeprom_read 022D          __size_of_toggle_led 0028  
+         toggle_zumm@cnt_bit 0075                ??_toggle_lock 0072                ??_toggle_zumm 0072  
+           ?_save_key_eeprom 0070                 ??_init_timer 0072              ??_play_long_zum 0072  
+check_key_in_base@count_keys 0078                __size_of_main 009A           __end_of_init_timer 025D  
+                   _pgm_mode 03CC             _tmr0_msg_timeout 0025          __end_of_toggle_lock 0263  
+        __end_of_toggle_zumm 01D7                  _msg_handled 03CA                 ??_toggle_led 0072  
+                   intlevel1 0000           __end_of_toggle_led 01FF                ?_eeprom_write 0072  
+               ?_eeprom_read 0070                  _toggle_lock 025D                  _toggle_zumm 01AF  

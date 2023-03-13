@@ -1,0 +1,13 @@
+_check_key_in_base: CODE, 331 0 52
+_play_long_zum: CODE, 535 0 22
+_main: CODE, 177 0 154
+_save_key_eeprom: CODE, 383 0 48
+_flush_rx_msg: CODE, 590 0 8
+_init_timer: CODE, 598 0 7
+_isr: CODE, 4 0 171
+_toggle_led: CODE, 471 0 40
+_toggle_lock: CODE, 605 0 6
+_toggle_zumm: CODE, 431 0 40
+_eeprom_read: CODE, 557 0 19
+_eeprom_write: CODE, 511 0 24
+Total: 591
