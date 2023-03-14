@@ -42,6 +42,8 @@ volatile unsigned int tmr0_msg_timeout = 0;
 volatile unsigned int tmr0_pgm_delay = 0;
 volatile unsigned char cnt_d = 0;
 
+//#define DEBUG_ON
+
 void send_usart(unsigned char dat) {
     while (!TRMT) { //wait till send previous byte
         NOP();
@@ -67,8 +69,8 @@ void print_data(void) {
 
 void interrupt isr(void) {
 
-    if (msg_handled) {
-        if (IOCIE && IOCAF2) { //set 1
+    if (msg_handled && IOCIE) {
+        if (IOCAF2) { //set 1
             if (bit_cnt == 0) {
                 odd_first = 1;
             } else {
@@ -93,7 +95,8 @@ void interrupt isr(void) {
                     if (bit_cnt == 24) {
                     read_data[0] |= 1;
                 }
-                ++cnt_d;
+                if (bit_cnt < 25)
+                    ++cnt_d;
             }
 
             ++bit_cnt;
@@ -102,7 +105,7 @@ void interrupt isr(void) {
                 even_last = 1;
             }
         } else
-            if (IOCIE && IOCAF3) { //set 0
+            if (IOCAF3) { //set 0
             if (bit_cnt > 0 && bit_cnt < 8) {
                 read_data[2] <<= 1;
             } else
@@ -115,21 +118,22 @@ void interrupt isr(void) {
 
             ++bit_cnt;
         }
+        if (IOCAF2 || IOCAF3) {
+            if (bit_cnt == 1) {
+                cnt_d = 0;
+                msg_err = 0;
+            } else
+                if (bit_cnt == 13) {//check odd even
+                if ((cnt_d & 1) != odd_first)
+                    msg_err = 1; //err
 
-        if (bit_cnt == 1) {
-            cnt_d = 0;
-            msg_err = 0;
-        } else
-            if (bit_cnt == 13) {//check odd even
-            if ((cnt_d & 1) != odd_first)
-                msg_err = 1; //err
-
-            cnt_d = 0;
-        } else
-            if (bit_cnt > 25) {
-            if ((cnt_d & 1) == even_last)
-                msg_err = 1; //err
-            msg_handled = 0;
+                cnt_d = 0;
+            } else
+                if (bit_cnt > 25) {
+                if ((cnt_d & 1) == even_last)
+                    msg_err = 1; //err
+                msg_handled = 0;
+            }
         }
     }
     IOCAF = 0;
@@ -187,6 +191,7 @@ void flush_rx_msg() {
     //TODO check even odd
     even_last = 0;
     odd_first = 0;
+    msg_handled = 1;
 }
 
 void toggle_led(unsigned char cnt_bit) {
@@ -217,36 +222,38 @@ unsigned char check_key_in_base(void){
    
    //eeprom erased
    if(count_keys == 0xFF)
-       count_keys = 0;
+       return 0;
    
    //check already presented
-    do {
+     while (count_keys) {
+        --count_keys;
         dat1 = eeprom_read(count_keys * 3 + 1);
         dat2 = eeprom_read(count_keys * 3 + 2);
         dat3 = eeprom_read(count_keys * 3 + 3);
 
         //already stored
-        if ((dat1 == read_data[2]) &&
-            (dat2 == read_data[1]) &&
+        if (((dat1 == read_data[2]) &&
+            (dat2 == read_data[1])) &&
             (dat3 == read_data[0]))
             return 1;
-
-    if(count_keys) --count_keys;
-    } while (count_keys);
+    }
     
     return 0;
 }
 
 unsigned char save_key_eeprom(unsigned char num_key) {
+#ifndef  DEBUG_ON
     if(check_key_in_base()) {
         return 0;
     }
+#endif
     
     //restrict max allowed keys is 10
     if(num_key > 10) 
         return 0;
     
     eeprom_write(0, num_key);
+    --num_key; //begin from 1 addr
     eeprom_write(num_key * 3 + 1, read_data[2]);
     eeprom_write(num_key * 3 + 2, read_data[1]);
     eeprom_write(num_key * 3 + 3, read_data[0]);
@@ -302,30 +309,45 @@ void main(void) {
     while (1) {
 
         if (!msg_handled) { //data received 26 bits
+#ifdef  DEBUG_ON
+        eeprom_write(0, cnt_key);
+        eeprom_write(cnt_key * 5 + 1, read_data[2]);
+        eeprom_write(cnt_key * 5 + 2, read_data[1]);
+        eeprom_write(cnt_key * 5 + 3, read_data[0]);
+        eeprom_write(cnt_key * 5 + 4, odd_first);
+        eeprom_write(cnt_key * 5 + 5, even_last);
+        ++cnt_key;
+#endif
+            
             //read OK
             if (!msg_err) {
                 if (pgm_mode) {
                     tmr0_pgm_delay = 0;
+                    ++cnt_key;
                     if (save_key_eeprom(cnt_key)) {
                         toggle_zumm(2);
-                        ++cnt_key;
                     } else {
                        play_long_zum(); 
                     }
                 } else {
                    if (check_key_in_base()) {
                        toggle_lock();
-                       toggle_led(3);
+                       if (IS_OPEN_LOCK) {
+                           //flash green led
+                           EXT_LED_ON;
+                           __delay_ms(500);
+                           EXT_LED_OFF;
+                       } else {
+                           toggle_led(3);
+                       }  
                    }
                 }
             } else {
                 //read error
-                toggle_led(3);
+                play_long_zum();
             }
 
             flush_rx_msg();
-            //toggle_lock();
-            msg_handled = 1;
         }
 
         //set timeout for receiv msg for ~100ms

@@ -23,7 +23,7 @@ Linker command line:
   -ACONFIG=08007h-08008h -pconfig=CONFIG -DCONFIG=2 -AIDLOC=08000h-08003h \
   -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-0FFh/0F000h -peeprom_data=EEDATA \
   -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 -DENTRY=2 -k \
-  C:\Users\mk\AppData\Local\Temp\s2ag.obj \
+  C:\Users\mk\AppData\Local\Temp\sk9g.obj \
   dist/default/production\New_Folder.production.obj 
 
 Object code version is 3.10
@@ -33,50 +33,51 @@ Machine type is 12F1822
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\mk\AppData\Local\Temp\s2ag.obj
-                end_init                             AF       AF        2        8       0
+C:\Users\mk\AppData\Local\Temp\sk9g.obj
+                end_init                             B8       B8        2        8       0
                 reset_vec                             0        0        1        0       0
 dist/default/production\New_Folder.production.obj
-                intentry                              4        4       AB        8       0
+                intentry                              4        4       B4        8       0
                 eeprom_data                           0     F000        8    1E000       2
                 config                             8007     8007        2    1000E       0
-                text448                             256      256        7        8       0
-                text447                             25D      25D        6        8       0
-                text446                             24E      24E        8        8       0
-                text445                             22D      22D       13        8       0
-                text444                             1FF      1FF       18        8       0
-                text443                             1D7      1D7       28        8       0
-                text442                             1AF      1AF       28        8       0
-                text441                             14B      14B       34        8       0
-                text440                             217      217       16        8       0
-                text439                             17F      17F       30        8       0
-                maintext                             B1       B1       9A        8       0
-                cstackBANK0                          29       29        2       20       1
+                text477                             27D      27D        7        8       0
+                text476                             276      276        7        8       0
+                text475                             26D      26D        9        8       0
+                text474                             24C      24C       13        8       0
+                text473                             21E      21E       18        8       0
+                text472                             1F6      1F6       28        8       0
+                text471                             1CE      1CE       28        8       0
+                text470                             19C      19C       32        8       0
+                text469                             236      236       16        8       0
+                text468                             16A      16A       32        8       0
+                maintext                             BA       BA       B0        8       0
+                cstackBANK0                          2A       2A        5       20       1
                 cstackCOMMON                         70       70        9       70       1
-                bssBANK0                             20       20        9       20       1
-                bssCOMMON                            7A       7A        2       70       1
-                bitbssCOMMON                        3C8       79        6       70       1     8
-                cinit                               240      240        E        8       0
+                bssBANK0                             20       20        A       20       1
+                bssCOMMON                            7B       7B        1       70       1
+                bitbssCOMMON                        3C8       79        5       70       1     8
+                cinit                               25F      25F        E        8       0
+                bitnvCOMMON                         3D0       7A        1       70       1     8
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CONST          
 
         CLASS   CODE           
-                end_init                             AF       AF        2         0
-                intentry                              4        4       AB         0
+                end_init                             B8       B8        2         0
+                intentry                              4        4       B4         0
                 reset_vec                             0        0        1         0
-                text448                             256      256        7         0
-                text447                             25D      25D        6         0
-                text446                             24E      24E        8         0
-                text445                             22D      22D       13         0
-                text444                             1FF      1FF       18         0
-                text443                             1D7      1D7       28         0
-                text442                             1AF      1AF       28         0
-                text441                             14B      14B       34         0
-                text440                             217      217       16         0
-                text439                             17F      17F       30         0
-                maintext                             B1       B1       9A         0
-                cinit                               240      240        E         0
+                text477                             27D      27D        7         0
+                text476                             276      276        7         0
+                text475                             26D      26D        9         0
+                text474                             24C      24C       13         0
+                text473                             21E      21E       18         0
+                text472                             1F6      1F6       28         0
+                text471                             1CE      1CE       28         0
+                text470                             19C      19C       32         0
+                text469                             236      236       16         0
+                text468                             16A      16A       32         0
+                maintext                             BA       BA       B0         0
+                cinit                               25F      25F        E         0
 
         CLASS   STRCODE        
 
@@ -85,8 +86,8 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   STRING         
 
         CLASS   BANK0          
-                cstackBANK0                          29       29        2         1
-                bssBANK0                             20       20        9         1
+                cstackBANK0                          2A       2A        5         1
+                bssBANK0                             20       20        A         1
 
         CLASS   BANK1          
 
@@ -99,8 +100,9 @@ TOTAL           Name                               Link     Load   Length     Sp
 
         CLASS   COMMON         
                 cstackCOMMON                         70       70        9         1
-                bssCOMMON                            7A       7A        2         1
-                bitbssCOMMON                        3C8       79        6         1
+                bssCOMMON                            7B       7B        1         1
+                bitbssCOMMON                        3C8       79        5         1
+                bitnvCOMMON                         3D0       7A        1         1
 
         CLASS   SFR0           
 
@@ -239,8 +241,8 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
                 reset_vec                      000000  000001  000001         0       0  CODE        2
-                intentry                       000004  00025F  000263         8       0  CODE        2
-                bssBANK0                       000020  00000B  00002B        20       1  BANK0       1
+                intentry                       000004  000280  000284         8       0  CODE        2
+                bssBANK0                       000020  00000F  00002F        20       1  BANK0       1
                 cstackCOMMON                   000070  00000C  00007C        70       1  COMMON      1
                 config                         008007  000002  008009     1000E       0  CONFIG      2
                 eeprom_data                    00F000  000008  00F008     1E000       2  EEDATA      2
@@ -249,19 +251,19 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
 UNUSED ADDRESS RANGES
 
         Name                Unused          Largest block    Delta
-        BANK0            0002B-0006F              45           1
+        BANK0            0002F-0006F              41           1
         BANK1            000A0-000BF              20           1
         BIGRAM           02000-0206F              70           1
         CODE             00001-00003               3           2
-                         00263-007FF             59D
+                         00284-007FF             57C
         COMMON           0007C-0007D               2           1
         CONST            00001-00003               3           2
-                         00263-007FF             100
+                         00284-007FF             100
         EEDATA           0F008-0F0FF              F8           2
         ENTRY            00001-00003               3           2
-                         00263-007FF             100
+                         00284-007FF             100
         IDLOC            08000-08003               4           2
-        RAM              0002B-0006F              45           1
+        RAM              0002F-0006F              41           1
                          000A0-000BF              20
         SFR0             00000-0001F              20           1
         SFR1             00080-0009F              20           1
@@ -296,9 +298,9 @@ UNUSED ADDRESS RANGES
         SFR8             00400-0046F              70           1
         SFR9             00480-004EF              70           1
         STRCODE          00001-00003               3           2
-                         00263-007FF             59D
+                         00284-007FF             57C
         STRING           00001-00003               3           2
-                         00263-007FF             100
+                         00284-007FF             100
 
                                   Symbol Table
 
@@ -308,7 +310,7 @@ UNUSED ADDRESS RANGES
 ??_flush_rx_msg              cstackCOMMON 00072
 ??_init_timer                cstackCOMMON 00072
 ??_isr                       cstackCOMMON 00070
-??_main                      cstackCOMMON 00079
+??_main                      cstackBANK0  0002B
 ??_play_long_zum             cstackCOMMON 00072
 ??_save_key_eeprom           cstackCOMMON 00079
 ??_toggle_led                cstackCOMMON 00072
@@ -394,6 +396,7 @@ __Bbank8                     bank8        1E010
 __Bbank9                     bank9        1E010
 __Bbigram                    bigram       1E010
 __BbitbssCOMMON              bitbssCOMMON 1E010
+__BbitnvCOMMON               bitnvCOMMON  1E010
 __BbssBANK0                  bssBANK0     1E010
 __BbssCOMMON                 bssCOMMON    1E010
 __Bcinit                     cinit        1E010
@@ -475,6 +478,7 @@ __Hbank8                     bank8        00010
 __Hbank9                     bank9        00010
 __Hbigram                    bigram       00010
 __HbitbssCOMMON              bitbssCOMMON F0080
+__HbitnvCOMMON               bitnvCOMMON  F0080
 __HbssBANK0                  bssBANK0     00010
 __HbssCOMMON                 bssCOMMON    00010
 __Hcinit                     cinit        00010
@@ -485,11 +489,11 @@ __Hconfig                    config       08009
 __HcstackBANK0               cstackBANK0  00010
 __HcstackCOMMON              cstackCOMMON 00010
 __Heeprom_data               eeprom_data  00008
-__Hend_init                  end_init     000B1
+__Hend_init                  end_init     000BA
 __Hfunctab                   functab      00000
 __Hidloc                     idloc        00000
-__Hinit                      init         000AF
-__Hintentry                  intentry     000AF
+__Hinit                      init         000B8
+__Hintentry                  intentry     000B8
 __Hmaintext                  maintext     00010
 __Hpa_nodes                  pa_nodes     00010
 __Hpowerup                   powerup      00000
@@ -564,6 +568,7 @@ __Lbank8                     bank8        00010
 __Lbank9                     bank9        00010
 __Lbigram                    bigram       00010
 __LbitbssCOMMON              bitbssCOMMON F0080
+__LbitnvCOMMON               bitnvCOMMON  F0080
 __LbssBANK0                  bssBANK0     00010
 __LbssCOMMON                 bssCOMMON    00010
 __Lcinit                     cinit        00010
@@ -574,10 +579,10 @@ __Lconfig                    config       08007
 __LcstackBANK0               cstackBANK0  00010
 __LcstackCOMMON              cstackCOMMON 00010
 __Leeprom_data               eeprom_data  00000
-__Lend_init                  end_init     000AF
+__Lend_init                  end_init     000B8
 __Lfunctab                   functab      00000
 __Lidloc                     idloc        00000
-__Linit                      init         000AF
+__Linit                      init         000B8
 __Lintentry                  intentry     00004
 __Lmaintext                  maintext     00010
 __Lpa_nodes                  pa_nodes     00010
@@ -621,35 +626,36 @@ __Ltext                      text         00010
 __S0                         (abs)        08009
 __S1                         (abs)        0007C
 __S2                         (abs)        0F008
-__end_of_check_key_in_base   text441      0017F
-__end_of_eeprom_read         text445      00240
-__end_of_eeprom_write        text444      00217
-__end_of_flush_rx_msg        text446      00256
-__end_of_init_timer          text448      0025D
-__end_of_isr                 intentry     000AF
-__end_of_main                maintext     0014B
-__end_of_play_long_zum       text440      0022D
-__end_of_save_key_eeprom     text439      001AF
-__end_of_toggle_led          text443      001FF
-__end_of_toggle_lock         text447      00263
-__end_of_toggle_zumm         text442      001D7
+__end_of_check_key_in_base   text470      001CE
+__end_of_eeprom_read         text474      0025F
+__end_of_eeprom_write        text473      00236
+__end_of_flush_rx_msg        text475      00276
+__end_of_init_timer          text477      00284
+__end_of_isr                 intentry     000B8
+__end_of_main                maintext     0016A
+__end_of_play_long_zum       text469      0024C
+__end_of_save_key_eeprom     text468      0019C
+__end_of_toggle_led          text472      0021E
+__end_of_toggle_lock         text476      0027D
+__end_of_toggle_zumm         text471      001F6
 __pbitbssCOMMON              bitbssCOMMON 003C8
+__pbitnvCOMMON               bitnvCOMMON  003D0
 __pbssBANK0                  bssBANK0     00020
-__pbssCOMMON                 bssCOMMON    0007A
-__pcstackBANK0               cstackBANK0  00029
+__pbssCOMMON                 bssCOMMON    0007B
+__pcstackBANK0               cstackBANK0  0002A
 __pcstackCOMMON              cstackCOMMON 00070
 __pintentry                  intentry     00004
-__pmaintext                  maintext     000B1
-__ptext439                   text439      0017F
-__ptext440                   text440      00217
-__ptext441                   text441      0014B
-__ptext442                   text442      001AF
-__ptext443                   text443      001D7
-__ptext444                   text444      001FF
-__ptext445                   text445      0022D
-__ptext446                   text446      0024E
-__ptext447                   text447      0025D
-__ptext448                   text448      00256
+__pmaintext                  maintext     000BA
+__ptext468                   text468      0016A
+__ptext469                   text469      00236
+__ptext470                   text470      0019C
+__ptext471                   text471      001CE
+__ptext472                   text472      001F6
+__ptext473                   text473      0021E
+__ptext474                   text474      0024C
+__ptext475                   text475      0026D
+__ptext476                   text476      00276
+__ptext477                   text477      0027D
 __size_of_check_key_in_base  (abs)        00000
 __size_of_eeprom_read        (abs)        00000
 __size_of_eeprom_write       (abs)        00000
@@ -662,31 +668,31 @@ __size_of_save_key_eeprom    (abs)        00000
 __size_of_toggle_led         (abs)        00000
 __size_of_toggle_lock        (abs)        00000
 __size_of_toggle_zumm        (abs)        00000
-_bit_cnt                     bssCOMMON    0007A
-_check_key_in_base           text441      0014B
-_cnt_d                       bssCOMMON    0007B
-_eeprom_read                 text445      0022D
-_eeprom_write                text444      001FF
+_bit_cnt                     bssCOMMON    0007B
+_check_key_in_base           text470      0019C
+_cnt_d                       bssBANK0     00029
+_eeprom_read                 text474      0024C
+_eeprom_write                text473      0021E
 _even_last                   bitbssCOMMON 003C8
-_exit                        init         000AF
-_flush_rx_msg                text446      0024E
-_init_timer                  text448      00256
+_exit                        init         000B8
+_flush_rx_msg                text475      0026D
+_init_timer                  text477      0027D
 _isr                         intentry     00004
-_main                        maintext     000B1
+_main                        maintext     000BA
 _msg_err                     bitbssCOMMON 003C9
-_msg_handled                 bitbssCOMMON 003CA
+_msg_handled                 bitnvCOMMON  003D0
 _nWPUEN                      (abs)        004AF
-_odd_first                   bitbssCOMMON 003CB
-_pgm_mode                    bitbssCOMMON 003CC
-_play_long_zum               text440      00217
+_odd_first                   bitbssCOMMON 003CA
+_pgm_mode                    bitbssCOMMON 003CB
+_play_long_zum               text469      00236
 _read_data                   bssBANK0     00020
-_save_key_eeprom             text439      0017F
+_save_key_eeprom             text468      0016A
 _tmr0_btn_delay              bssBANK0     00023
 _tmr0_msg_timeout            bssBANK0     00025
 _tmr0_pgm_delay              bssBANK0     00027
-_toggle_led                  text443      001D7
-_toggle_lock                 text447      0025D
-_toggle_zumm                 text442      001AF
+_toggle_led                  text472      001F6
+_toggle_lock                 text476      00276
+_toggle_zumm                 text471      001CE
 btemp                        (abs)        0007E
 check_key_in_base@count_keys cstackCOMMON 00078
 check_key_in_base@dat1       cstackCOMMON 00075
@@ -695,48 +701,28 @@ check_key_in_base@dat3       cstackCOMMON 00077
 eeprom_read@addr             cstackCOMMON 00074
 eeprom_write@addr            cstackCOMMON 00073
 eeprom_write@value           cstackCOMMON 00072
-end_of_initialization        cinit        0024C
-i1l1914                                        
-i1l1954                                        
-i1l1962                                        
-i1l1982                                        
-i1l1984                                        
-i1l2002                                        
-i1l2008                                        
-i1l2010                                        
+end_of_initialization        cinit        0026B
+i1l1944                                        
+i1l1986                                        
+i1l1992                                        
+i1l2016                                        
+i1l2018                                        
+i1l2036                                        
+i1l2042                                        
+i1l2044                                        
 intlevel0                    functab      00000
 intlevel1                    functab      00000
 intlevel2                    functab      00000
 intlevel3                    functab      00000
 intlevel4                    functab      00000
 intlevel5                    functab      00000
-l1116                                          
-l1124                                          
-l1130                                          
-l1136                                          
-l1152                                          
-l1193                                          
-l1212                                          
-l2246                                          
-l2248                                          
-l2250                                          
-l2252                                          
-l2254                                          
-l2258                                          
-l2260                                          
-l2262                                          
-l2270                                          
-l2272                                          
-l2274                                          
-l2278                                          
-l2280                                          
-l2282                                          
-l2284                                          
-l2288                                          
-l2290                                          
-l2292                                          
-l2294                                          
-l2296                                          
+l1120                                          
+l1128                                          
+l1134                                          
+l1140                                          
+l1156                                          
+l1199                                          
+l1218                                          
 l2300                                          
 l2302                                          
 l2304                                          
@@ -744,52 +730,79 @@ l2306
 l2308                                          
 l2312                                          
 l2314                                          
-l2320                                          
-l2322                                          
-l2324                                          
+l2316                                          
+l2318                                          
+l2326                                          
+l2328                                          
+l2330                                          
+l2334                                          
 l2336                                          
-l2342                                          
+l2338                                          
+l2340                                          
 l2344                                          
 l2346                                          
 l2348                                          
 l2350                                          
+l2352                                          
+l2356                                          
+l2358                                          
+l2360                                          
+l2362                                          
 l2364                                          
 l2368                                          
 l2370                                          
-l2372                                          
-l2374                                          
-l2376                                          
 l2378                                          
 l2380                                          
 l2382                                          
 l2384                                          
-l2386                                          
-l2388                                          
-l2390                                          
-l2392                                          
-l2394                                          
-l2396                                          
-l2398                                          
 l2400                                          
 l2402                                          
-l2412                                          
-l2416                                          
+l2404                                          
+l2406                                          
+l2408                                          
+l2422                                          
 l2424                                          
+l2426                                          
+l2428                                          
 l2430                                          
+l2434                                          
 l2436                                          
+l2438                                          
+l2440                                          
+l2442                                          
+l2444                                          
 l2446                                          
+l2448                                          
+l2450                                          
 l2452                                          
 l2454                                          
 l2456                                          
 l2458                                          
+l2460                                          
+l2462                                          
 l2464                                          
+l2466                                          
 l2468                                          
-main@btn_released            bitbssCOMMON 003CD
-main@cnt_key                 cstackBANK0  0002A
+l2478                                          
+l2480                                          
+l2490                                          
+l2494                                          
+l2496                                          
+l2498                                          
+l2510                                          
+l2520                                          
+l2526                                          
+l2528                                          
+l2530                                          
+l2532                                          
+l2538                                          
+l2542                                          
+main@btn_released            bitbssCOMMON 003CC
+main@cnt_key                 cstackBANK0  0002E
 reset_vec                    reset_vec    00000
-save_key_eeprom@num_key      cstackBANK0  00029
-start                        init         000AF
-start_initialization         cinit        00240
+save_key_eeprom@num_key      cstackBANK0  0002A
+start                        init         000B8
+start_initialization         cinit        0025F
 toggle_led@cnt_bit           cstackCOMMON 00075
 toggle_zumm@cnt_bit          cstackCOMMON 00075
 wtemp0                       (abs)        0007E

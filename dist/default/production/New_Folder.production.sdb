@@ -707,7 +707,7 @@
 [s S1846 . 1 `uc 1 TOSH 1 0 :7:0 
 ]
 [u S1848 . 1 `S1846 1 . 1 0 ]
-"68 main.c
+"70 main.c
 [v F1625 `(v  1 t 0 ]
 "5 C:\Program Files (x86)\HI-TECH Software\PICC\9.71a\sources\abdiv.c
 [v ___abdiv `(c  1 e 1 0 ]
@@ -785,31 +785,31 @@
 [v ___wmul `(ui  1 e 2 0 ]
 "8 eeread.c
 [v _eeprom_read `(uc  1 e 1 0 ]
-"45 main.c
+"47 main.c
 [v _send_usart `(v  1 e 0 0 ]
-"52
+"54
 [v _print_data `(v  1 e 0 0 ]
-"68
+"70
 [v _isr `I(v  1 e 0 0 ]
-"154
+"158
 [v _init_usart `(v  1 e 0 0 ]
-"163
+"167
 [v _init_timer `(v  1 e 0 0 ]
-"174
+"178
 [v _toggle_lock `(v  1 e 0 0 ]
-"182
+"186
 [v _flush_rx_msg `(v  1 e 0 0 ]
-"192
+"197
 [v _toggle_led `(v  1 e 0 0 ]
-"203
+"208
 [v _toggle_zumm `(v  1 e 0 0 ]
-"214
+"219
 [v _check_key_in_base `(uc  1 e 1 0 ]
-"240
+"244
 [v _save_key_eeprom `(uc  1 e 1 0 ]
-"256
+"263
 [v _play_long_zum `(v  1 e 0 0 ]
-"262
+"269
 [v _main `(v  1 e 0 0 ]
 "131 C:\Program Files (x86)\HI-TECH Software\PICC\9.71a\include\pic12f1822.h
 [v _INDF0 `Vuc  1 e 1 @0 ]
@@ -1867,51 +1867,51 @@
 [v _tmr0_pgm_delay `Vui  1 e 2 0 ]
 "43
 [v _cnt_d `Vuc  1 e 1 0 ]
-"262
+"269
 [v _main `(v  1 e 0 0 ]
 {
-"263
-[v main@cnt_key `uc  1 a 1 1 ]
-"265
+"270
+[v main@cnt_key `uc  1 a 1 4 ]
+"272
 [v main@btn_released `b  1 s 0 btn_released ]
-"375
+"397
 } 0
-"240
+"244
 [v _save_key_eeprom `(uc  1 e 1 0 ]
 {
 [v save_key_eeprom@num_key `uc  1 a 1 wreg ]
 [v save_key_eeprom@num_key `uc  1 a 1 wreg ]
-"254
+"261
 } 0
-"256
+"263
 [v _play_long_zum `(v  1 e 0 0 ]
 {
-"260
+"267
 } 0
-"214
+"219
 [v _check_key_in_base `(uc  1 e 1 0 ]
 {
-"216
+"221
 [v check_key_in_base@count_keys `uc  1 a 1 8 ]
-"215
+"220
 [v check_key_in_base@dat3 `uc  1 a 1 7 ]
 [v check_key_in_base@dat2 `uc  1 a 1 6 ]
 [v check_key_in_base@dat1 `uc  1 a 1 5 ]
-"238
+"242
 } 0
-"203
+"208
 [v _toggle_zumm `(v  1 e 0 0 ]
 {
 [v toggle_zumm@cnt_bit `uc  1 a 1 wreg ]
 [v toggle_zumm@cnt_bit `uc  1 a 1 wreg ]
-"212
+"217
 } 0
-"192
+"197
 [v _toggle_led `(v  1 e 0 0 ]
 {
 [v toggle_led@cnt_bit `uc  1 a 1 wreg ]
 [v toggle_led@cnt_bit `uc  1 a 1 wreg ]
-"201
+"206
 } 0
 "8 C:\Program Files (x86)\HI-TECH Software\PICC\9.71a\sources\eewrite.c
 [v _eeprom_write `(v  1 e 0 0 ]
@@ -1928,23 +1928,23 @@
 [v eeprom_read@addr `uc  1 a 1 wreg ]
 "13
 } 0
-"182 main.c
+"186 main.c
 [v _flush_rx_msg `(v  1 e 0 0 ]
 {
-"190
+"195
 } 0
-"174
+"178
 [v _toggle_lock `(v  1 e 0 0 ]
 {
-"180
+"184
 } 0
-"163
+"167
 [v _init_timer `(v  1 e 0 0 ]
 {
-"172
+"176
 } 0
-"68
+"70
 [v _isr `I(v  1 e 0 0 ]
 {
-"149
+"153
 } 0
